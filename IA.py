@@ -1,6 +1,6 @@
-matrix_solvable = [[1, 0, 4],
-                   [7, 6, 3],
-                   [8, 2, 5]]
+matrix_solvable = [[1, 4, 3],
+                   [7, 6, 5],
+                   [8, 2, 0]]
 
 class Board:
   def __init__(self,matrix):
@@ -61,14 +61,14 @@ def tryMove():
 
     elif(can_go_down):
        print('case 2')
-       temp_value = matrix_solvable[y_axis][x_axis+1]
-       matrix_solvable[y_axis][x_axis+1] = 0
+       temp_value = matrix_solvable[y_axis+1][x_axis]
+       matrix_solvable[y_axis+1][x_axis] = 0
        matrix_solvable[y_axis][x_axis] = temp_value
 
     elif (can_go_left):
        print('case 3')
-       temp_value = matrix_solvable[y_axis-1][x_axis]
-       matrix_solvable[y_axis-1][x_axis] = 0
+       temp_value = matrix_solvable[y_axis][x_axis-1]
+       matrix_solvable[y_axis][x_axis-1] = 0
        matrix_solvable[y_axis][x_axis] = temp_value
 
 print(matrix_solvable)
