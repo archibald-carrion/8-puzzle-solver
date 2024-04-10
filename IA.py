@@ -77,7 +77,13 @@ def tryMove():
 def goUp(board,y_axis,x_axis):
     print('case 0')
     #Create a new matrix
-    matrix = board.copy()
+
+    matrix = [[0 for i in range(3)] for j in range(3)]
+    for i in range(3):
+        for j in range(3):
+            matrix[i][j] = board[i][j]
+    
+    #matrix = board.copy()
     temp_value = matrix[y_axis-1][x_axis]
     matrix[y_axis-1][x_axis] = 0
     matrix[y_axis][x_axis] = temp_value
@@ -85,8 +91,13 @@ def goUp(board,y_axis,x_axis):
 
 def goRight(board,y_axis,x_axis):
     print('case 1')
+
+    matrix = [[0 for i in range(3)] for j in range(3)]
+    for i in range(3):
+        for j in range(3):
+            matrix[i][j] = board[i][j]
     #Create a new matrix
-    matrix = board.copy()
+    #matrix = board.copy()
     temp_value = matrix[y_axis][x_axis+1]
     matrix[y_axis][x_axis+1] = 0
     matrix[y_axis][x_axis] = temp_value
@@ -94,17 +105,27 @@ def goRight(board,y_axis,x_axis):
 
 def goDown(board,y_axis,x_axis):
     print('case 2')
+
+    matrix = [[0 for i in range(3)] for j in range(3)]
+    for i in range(3):
+        for j in range(3):
+            matrix[i][j] = board[i][j]
     #Create a new matrix
-    matrix = board.copy()
+    #matrix = board.copy()
+
     temp_value = matrix[y_axis+1][x_axis]
     matrix[y_axis+1][x_axis] = 0
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
 def goLeft(board,y_axis,x_axis):
+    matrix = [[0 for i in range(3)] for j in range(3)]
+    for i in range(3):
+        for j in range(3):
+            matrix[i][j] = board[i][j]
     print('case 3')
     #Create a new matrix
-    matrix = board.copy()
+    #matrix = board.copy()
     temp_value = matrix[y_axis][x_axis-1]
     matrix[y_axis][x_axis-1] = 0
     matrix[y_axis][x_axis] = temp_value
@@ -121,32 +142,32 @@ def allMoves(board):
 def isSolved(board):
     same = False
     solved = [[1, 2, 3],
-            [4, 0, 5],
-            [6, 7, 8]]
+            [4, 5, 6],
+            [7, 8, 0]]
     if board == solved:
         same = True
     return same
 
-def widthFirst():
-    found = False
-    matrix = matrix_solvable
-    #Iteration for each level
-    while not(found):
-        found = isSolved(matrix)
-        up,right,down,left = allMoves(matrix)
-        nextLevel = []
-        if up:
-            newNode = goUp(matrix)
-            nextLevel.append(newNode)
-        if right:
-            newNode = goRight(matrix)
-            nextLevel.append(newNode)
-        if down:
-            newNode = goDown(matrix)
-            nextLevel.append(newNode)
-        if left:
-            newNode = goLeft(matrix)
-            nextLevel.append(newNode)
+# def widthFirst():
+#     found = False
+#     matrix = matrix_solvable
+#     #Iteration for each level
+#     while not(found):
+#         found = isSolved(matrix)
+#         up,right,down,left = allMoves(matrix)
+#         nextLevel = []
+#         if up:
+#             newNode = goUp(matrix)
+#             nextLevel.append(newNode)
+#         if right:
+#             newNode = goRight(matrix)
+#             nextLevel.append(newNode)
+#         if down:
+#             newNode = goDown(matrix)
+#             nextLevel.append(newNode)
+#         if left:
+#             newNode = goLeft(matrix)
+#             nextLevel.append(newNode)
 
 # Function to check if the matrix is currently in the visited set
 def is_matrix_visited(matrix, visited):
@@ -160,10 +181,7 @@ def is_matrix_visited(matrix, visited):
             return True
     return False
 
-    # for visited_node in visited:
-    #     if all(a == b for a, b in zip(*visited_node, *matrix)):  # Element-wise comparison
-    #         return True
-    # return False
+
 def add_to_visited(matrix, visited):
     # create a matrix with 3 rows and 3 columns
     matrix_copy = [[0 for i in range(3)] for j in range(3)]
@@ -184,10 +202,11 @@ def breadthFirst(matrix):
     queue.append(matrix)
     #While queue has contents
     while queue and not found:
+        print("queue: " + str(queue))
         node = queue.popleft()
 
         if node not in visited:
-            
+
             # check if the node is the solution
             if isSolved(node):
                 # empty the queue
@@ -204,29 +223,53 @@ def breadthFirst(matrix):
 
                 if up:
                     newNode = goUp(node, x_axis, y_axis)
-                    # print("newNode" + str(newNode))
-                    # print("visited" + str(visited))
-                    # if is_matrix_visited(newNode, visited) == False:
+                    print("newNode: " + str(newNode))
                     if newNode not in visited:
                         print("up")
                         queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        #print("initial node: " + str(node))
+
                 if right:
                     newNode = goRight(node, x_axis, y_axis)
+                    print("newNode: " + str(newNode))
                     if newNode not in visited:
                         print("right")
                         queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
                     # queue.append(newNode)
+
                 if down:
                     newNode = goDown(node, x_axis, y_axis)
+                    print("newNode: " + str(newNode))
                     if newNode not in visited:
                         print("down")
                         queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
                     # queue.append(newNode)
+
                 if left:
                     newNode = goLeft(node, x_axis, y_axis)
+                    print("newNode: " + str(newNode))
                     if newNode not in visited:
                         print("left")
                         queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
                     # queue.append(newNode)
 
 
