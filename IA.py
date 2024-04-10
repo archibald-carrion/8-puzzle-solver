@@ -136,35 +136,47 @@ def widthFirst():
         up,right,down,left = allMoves(matrix)
         nextLevel = []
         if up:
-            newMatrix = goUp(matrix)
-            nextLevel.append(newMatrix)
+            newNode = goUp(matrix)
+            nextLevel.append(newNode)
         if right:
-            newMatrix = goRight(matrix)
-            nextLevel.append(newMatrix)
+            newNode = goRight(matrix)
+            nextLevel.append(newNode)
         if down:
-            newMatrix = goDown(matrix)
-            nextLevel.append(newMatrix)
+            newNode = goDown(matrix)
+            nextLevel.append(newNode)
         if left:
-            newMatrix = goLeft(matrix)
-            nextLevel.append(newMatrix)
+            newNode = goLeft(matrix)
+            nextLevel.append(newNode)
 
 
-def breadthFirst(graph, start):
+def breadthFirst(matrix):
+    found = False
     #list
     visited = set()
     #queue
-    queue = deque([start])
+    queue = deque([matrix])
+    #While queue has contents
     while queue:
         node = queue.popleft()
         if node not in visited:
             visited.add(node)
 
-            print(node)  # Do something with the node
+            found = isSolved(node)
+            up,right,down,left = allMoves(node)
+            if up:
+                newNode = goUp(node)
+                if newNode not in visited:
+                    queue.append(newNode)
+            if right:
+                newNode = goRight(node)
+                queue.append(newNode)
+            if down:
+                newNode = goDown(node)
+                queue.append(newNode)
+            if left:
+                newNode = goLeft(node)
+                queue.append(newNode)
 
-            
-            for neighbor in graph[node]:
-                if neighbor not in visited:
-                    queue.append(neighbor)
 
 
 
