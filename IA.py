@@ -35,47 +35,47 @@ def findZero(board):
     return x_axis, y_axis
 
 # try to move the zero to adjacent position
-def tryMove():
-    #find zero
-    x_axis, y_axis = findZero(matrix_solvable)
+# def tryMove():
+#     #find zero
+#     x_axis, y_axis = findZero(matrix_solvable)
     
-    # 0 states
-    print(x_axis, y_axis)
+#     # 0 states
+#     print(x_axis, y_axis)
 
-    can_go_up = (y_axis > 0)
-    can_go_right = (x_axis < 2)
-    can_go_down = (y_axis < 2)
-    can_go_left = (x_axis > 0)
+#     can_go_up = (y_axis > 0)
+#     can_go_right = (x_axis < 2)
+#     can_go_down = (y_axis < 2)
+#     can_go_left = (x_axis > 0)
     
-    if can_go_up:
-       print('case 0')
-       print(matrix_solvable[y_axis][x_axis])
+#     if can_go_up:
+#        print('case 0')
+#        print(matrix_solvable[y_axis][x_axis])
 
-       temp_value = matrix_solvable[y_axis-1][x_axis]
-       matrix_solvable[y_axis-1][x_axis] = 0
-       print(matrix_solvable[y_axis][x_axis])
-       matrix_solvable[y_axis][x_axis] = temp_value
+#        temp_value = matrix_solvable[y_axis-1][x_axis]
+#        matrix_solvable[y_axis-1][x_axis] = 0
+#        print(matrix_solvable[y_axis][x_axis])
+#        matrix_solvable[y_axis][x_axis] = temp_value
 
-    elif (can_go_right):
-       print('case 1')
-       temp_value = matrix_solvable[y_axis][x_axis+1]
-       matrix_solvable[y_axis][x_axis+1] = 0
-       matrix_solvable[y_axis][x_axis] = temp_value
+#     elif (can_go_right):
+#        print('case 1')
+#        temp_value = matrix_solvable[y_axis][x_axis+1]
+#        matrix_solvable[y_axis][x_axis+1] = 0
+#        matrix_solvable[y_axis][x_axis] = temp_value
 
-    elif(can_go_down):
-       print('case 2')
-       temp_value = matrix_solvable[y_axis+1][x_axis]
-       matrix_solvable[y_axis+1][x_axis] = 0
-       matrix_solvable[y_axis][x_axis] = temp_value
+#     elif(can_go_down):
+#        print('case 2')
+#        temp_value = matrix_solvable[y_axis+1][x_axis]
+#        matrix_solvable[y_axis+1][x_axis] = 0
+#        matrix_solvable[y_axis][x_axis] = temp_value
 
-    elif (can_go_left):
-       print('case 3')
-       temp_value = matrix_solvable[y_axis][x_axis-1]
-       matrix_solvable[y_axis][x_axis-1] = 0
-       matrix_solvable[y_axis][x_axis] = temp_value
+#     elif (can_go_left):
+#        print('case 3')
+#        temp_value = matrix_solvable[y_axis][x_axis-1]
+#        matrix_solvable[y_axis][x_axis-1] = 0
+#        matrix_solvable[y_axis][x_axis] = temp_value
 
 def goUp(board,x_axis,y_axis):
-    print('case 0')
+    #print('case 0')
     #Create a new matrix
 
     matrix = [[0 for i in range(3)] for j in range(3)]
@@ -90,7 +90,7 @@ def goUp(board,x_axis,y_axis):
     return matrix
 
 def goRight(board,x_axis,y_axis):
-    print('case 1')
+    #print('case 1')
 
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
@@ -104,7 +104,7 @@ def goRight(board,x_axis,y_axis):
     return matrix
 
 def goDown(board,x_axis,y_axis):
-    print('case 2')
+    #print('case 2')
 
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
@@ -123,7 +123,7 @@ def goLeft(board,x_axis,y_axis):
     for i in range(3):
         for j in range(3):
             matrix[i][j] = board[i][j]
-    print('case 3')
+    #print('case 3')
     #Create a new matrix
     #matrix = board.copy()
     temp_value = matrix[y_axis][x_axis-1]
@@ -200,17 +200,20 @@ def breadthFirst(matrix):
     #queue = deque([matrix])
     queue = deque()
     queue.append(matrix)
+    counter = 0
     #While queue has contents
     while queue and not found:
-        print("queue: " + str(queue))
+        #print("queue: " + str(queue))
         node = queue.popleft()
-
+        counter = counter + 1
         if node not in visited:
-            print("Actual node: " + str(node))
+            #print("Actual node: " + str(node))
             # check if the node is the solution
             if isSolved(node):
                 # empty the queue
+                print("Actual node: " + str(node))
                 print("puzzle solved")
+                print("After " + str(counter) + " iterations")
                 queue.clear()
                 found = True
 
@@ -223,9 +226,9 @@ def breadthFirst(matrix):
 
                 if up:
                     newNode = goUp(node, x_axis, y_axis)
-                    print("newNode: " + str(newNode))
+                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        print("up")
+                        #print("up")
                         queue.append(newNode)
                     
                     # delete newNode
@@ -235,9 +238,9 @@ def breadthFirst(matrix):
 
                 if right:
                     newNode = goRight(node, x_axis, y_axis)
-                    print("newNode: " + str(newNode))
+                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        print("right")
+                        #print("right")
                         queue.append(newNode)
                     
                     # delete newNode
@@ -248,9 +251,9 @@ def breadthFirst(matrix):
 
                 if down:
                     newNode = goDown(node, x_axis, y_axis)
-                    print("newNode: " + str(newNode))
+                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        print("down")
+                        #print("down")
                         queue.append(newNode)
                     
                     # delete newNode
@@ -261,9 +264,9 @@ def breadthFirst(matrix):
 
                 if left:
                     newNode = goLeft(node, x_axis, y_axis)
-                    print("newNode: " + str(newNode))
+                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        print("left")
+                        #print("left")
                         queue.append(newNode)
                     
                     # delete newNode

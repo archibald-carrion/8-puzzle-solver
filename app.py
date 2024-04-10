@@ -15,4 +15,4 @@ class App():
         print("solving the puzzle: ")
         print(matrix_solvable)
         IA.breadthFirst(matrix_solvable)
-        print(matrix_solvable)
+        #print(matrix_solvable)
