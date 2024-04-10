@@ -74,7 +74,7 @@ def tryMove():
        matrix_solvable[y_axis][x_axis-1] = 0
        matrix_solvable[y_axis][x_axis] = temp_value
 
-def goUp(board,y_axis,x_axis):
+def goUp(board,x_axis,y_axis):
     print('case 0')
     #Create a new matrix
 
@@ -89,7 +89,7 @@ def goUp(board,y_axis,x_axis):
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
-def goRight(board,y_axis,x_axis):
+def goRight(board,x_axis,y_axis):
     print('case 1')
 
     matrix = [[0 for i in range(3)] for j in range(3)]
@@ -103,7 +103,7 @@ def goRight(board,y_axis,x_axis):
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
-def goDown(board,y_axis,x_axis):
+def goDown(board,x_axis,y_axis):
     print('case 2')
 
     matrix = [[0 for i in range(3)] for j in range(3)]
@@ -118,7 +118,7 @@ def goDown(board,y_axis,x_axis):
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
-def goLeft(board,y_axis,x_axis):
+def goLeft(board,x_axis,y_axis):
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
@@ -206,7 +206,7 @@ def breadthFirst(matrix):
         node = queue.popleft()
 
         if node not in visited:
-
+            print("Actual node: " + str(node))
             # check if the node is the solution
             if isSolved(node):
                 # empty the queue
