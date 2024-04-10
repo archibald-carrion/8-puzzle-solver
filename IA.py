@@ -178,7 +178,28 @@ def breadthFirst(matrix):
                 queue.append(newNode)
 
 
-
+# Function to check if the matrix is solvable
+# a matrix is solvable if the number of inversions is even
+# an inversion is when a number is greater than another number that is after it
+# 0 is not counted as a number in this case, only the numbers from 1 to 8
+# TODO: check if this is correct
+def isTableSolvable(matrix):
+    #Count the number of inversions
+    inversions = 0
+    #Create a list with the matrix
+    list_matrix = []
+    for i in range(3):
+        for j in range(3):
+            list_matrix.append(matrix[i][j])
+    #Count the number of inversions
+    for i in range(9):
+        for j in range(i+1,9):
+            if list_matrix[i] > list_matrix[j] and list_matrix[i] != 0 and list_matrix[j] != 0:
+                inversions = inversions + 1
+    #If the number of inversions is odd, the matrix is not solvable
+    if inversions % 2 != 0:
+        return False
+    return True
 
 
 
