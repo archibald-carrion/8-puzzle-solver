@@ -148,33 +148,45 @@ def widthFirst():
             newNode = goLeft(matrix)
             nextLevel.append(newNode)
 
+# Function to check if the matrix is currently in the visited set
+def is_matrix_visited(matrix, visited):
+    for visited_node in visited:
+        if all(a == b for a, b in zip(*visited_node, *matrix)):  # Element-wise comparison
+            return True
+    return False
+
 
 def breadthFirst(matrix):
     found = False
     #list
-    visited = set()
+    visited = []
     #queue
     queue = deque([matrix])
     #While queue has contents
     while queue:
         node = queue.popleft()
+        # if is_matrix_visited(node, visited) == False:
         if node not in visited:
-            visited.add(node)
+            #visited.add(node)
+            visited.append(node)
+            print("hello")
 
             found = isSolved(node)
             up,right,down,left = allMoves(node)
+            x_axis, y_axis = findZero(node)
+
             if up:
-                newNode = goUp(node)
+                newNode = goUp(node, x_axis, y_axis)
                 if newNode not in visited:
                     queue.append(newNode)
             if right:
-                newNode = goRight(node)
+                newNode = goRight(node, x_axis, y_axis)
                 queue.append(newNode)
             if down:
-                newNode = goDown(node)
+                newNode = goDown(node, x_axis, y_axis)
                 queue.append(newNode)
             if left:
-                newNode = goLeft(node)
+                newNode = goLeft(node, x_axis, y_axis)
                 queue.append(newNode)
 
 
@@ -200,9 +212,3 @@ def isTableSolvable(matrix):
     if inversions % 2 != 0:
         return False
     return True
-
-
-
-print(matrix_solvable)
-tryMove()
-print(matrix_solvable)
