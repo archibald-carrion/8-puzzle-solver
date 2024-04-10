@@ -151,9 +151,27 @@ def widthFirst():
 # Function to check if the matrix is currently in the visited set
 def is_matrix_visited(matrix, visited):
     for visited_node in visited:
-        if all(a == b for a, b in zip(*visited_node, *matrix)):  # Element-wise comparison
+        matrix_is_visited = True
+        for i in range(3):
+            for j in range(3):
+                if visited_node[i][j] != matrix[i][j]:
+                    matrix_is_visited = False
+        if matrix_is_visited:
             return True
     return False
+
+    # for visited_node in visited:
+    #     if all(a == b for a, b in zip(*visited_node, *matrix)):  # Element-wise comparison
+    #         return True
+    # return False
+def add_to_visited(matrix, visited):
+    # create a matrix with 3 rows and 3 columns
+    matrix_copy = [[0 for i in range(3)] for j in range(3)]
+    for i in range(3):
+        for j in range(3):
+            matrix_copy[i][j] = matrix[i][j]
+            
+    visited.append(matrix_copy)
 
 
 def breadthFirst(matrix):
@@ -161,33 +179,55 @@ def breadthFirst(matrix):
     #list
     visited = []
     #queue
-    queue = deque([matrix])
+    #queue = deque([matrix])
+    queue = deque()
+    queue.append(matrix)
     #While queue has contents
-    while queue:
+    while queue and not found:
         node = queue.popleft()
-        # if is_matrix_visited(node, visited) == False:
+
         if node not in visited:
-            #visited.add(node)
-            visited.append(node)
-            print("hello")
+            
+            # check if the node is the solution
+            if isSolved(node):
+                # empty the queue
+                print("puzzle solved")
+                queue.clear()
+                found = True
 
-            found = isSolved(node)
-            up,right,down,left = allMoves(node)
-            x_axis, y_axis = findZero(node)
+            add_to_visited(node, visited)
 
-            if up:
-                newNode = goUp(node, x_axis, y_axis)
-                if newNode not in visited:
-                    queue.append(newNode)
-            if right:
-                newNode = goRight(node, x_axis, y_axis)
-                queue.append(newNode)
-            if down:
-                newNode = goDown(node, x_axis, y_axis)
-                queue.append(newNode)
-            if left:
-                newNode = goLeft(node, x_axis, y_axis)
-                queue.append(newNode)
+            if not found:
+                # found = isSolved(node)
+                up,right,down,left = allMoves(node)
+                x_axis, y_axis = findZero(node)
+
+                if up:
+                    newNode = goUp(node, x_axis, y_axis)
+                    # print("newNode" + str(newNode))
+                    # print("visited" + str(visited))
+                    # if is_matrix_visited(newNode, visited) == False:
+                    if newNode not in visited:
+                        print("up")
+                        queue.append(newNode)
+                if right:
+                    newNode = goRight(node, x_axis, y_axis)
+                    if newNode not in visited:
+                        print("right")
+                        queue.append(newNode)
+                    # queue.append(newNode)
+                if down:
+                    newNode = goDown(node, x_axis, y_axis)
+                    if newNode not in visited:
+                        print("down")
+                        queue.append(newNode)
+                    # queue.append(newNode)
+                if left:
+                    newNode = goLeft(node, x_axis, y_axis)
+                    if newNode not in visited:
+                        print("left")
+                        queue.append(newNode)
+                    # queue.append(newNode)
 
 
 # Function to check if the matrix is solvable
