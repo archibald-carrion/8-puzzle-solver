@@ -14,5 +14,7 @@ class App():
         print('App is running')
         print("solving the puzzle: ")
         print(matrix_solvable)
+
+        # call either IDS or breadthFirst
         IA.breadthFirst(matrix_solvable)
         #print(matrix_solvable)

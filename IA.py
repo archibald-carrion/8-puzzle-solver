@@ -275,7 +275,25 @@ def breadthFirst(matrix):
                         # queue.append(newNode)
                     # queue.append(newNode)
 
+def matrixRating(matrix):
+    rating = 0
+    x = 0
+    y = 0
+    coordinates_solved = [(0,0),(1,0),(2,0),(0,1),(1,1),(2,1),(0,2),(1,2),(2,2)] 
+    for i in range(3):
+        for j in range(3):
+            value = matrix[j][i]
+            print(value)
+            x = coordinates_solved[value-1][0] + j
+            y = coordinates_solved[value-1][1] + i
+            rating = rating + x + y
+    
+    return rating
 
+
+def IDS(matrix):
+    
+    return matrix
 # Function to check if the matrix is solvable
 # a matrix is solvable if the number of inversions is even
 # an inversion is when a number is greater than another number that is after it
