@@ -44,8 +44,6 @@ def goUp(board,x_axis,y_axis):
     return matrix
 
 def goRight(board,x_axis,y_axis):
-    #print('case 1')
-
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
@@ -114,7 +112,6 @@ def is_matrix_visited(matrix, visited):
             return True
     return False
 
-
 def add_to_visited(matrix, visited):
     # create a matrix with 3 rows and 3 columns
     matrix_copy = [[0 for i in range(3)] for j in range(3)]
@@ -124,7 +121,7 @@ def add_to_visited(matrix, visited):
             
     visited.append(matrix_copy)
 
-
+# breadth first algorithm
 def breadthFirst(matrix):
     found = False
     #list
@@ -208,6 +205,17 @@ def breadthFirst(matrix):
                         # queue.append(newNode)
                     # queue.append(newNode)
 
+def calculate_heuristic_value(matrix):
+    # the heuristic value is the sum of the manhattan distances of each number to its correct position
+    heuristic = 0
+    for i in range(3):
+        for j in range(3):
+            if matrix[i][j] != 0:
+                x_axis = (matrix[i][j] - 1) % 3
+                y_axis = (matrix[i][j] - 1) // 3
+                heuristic = heuristic + abs(x_axis - j) + abs(y_axis - i)
+    return heuristic
+
 # greedy algorithm uses the same logic as the breadth first algorithm but additionally
 # uses a heuristic to find the solution
 def greedy(matrix):
@@ -237,6 +245,7 @@ def greedy(matrix):
 
             add_to_visited(node, visited)
 
+            # all 4 possible moves will be checked and only the one with the lowest heuristic value will be added to the queue
             if not found:
                 # found = isSolved(node)
                 up,right,down,left = allMoves(node)
