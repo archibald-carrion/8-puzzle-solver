@@ -205,7 +205,6 @@ def breadthFirst(matrix):
                         # queue.append(newNode)
                     # queue.append(newNode)
 
-
 def matrixRating(matrix):
     rating = 0
     x = 0
@@ -375,3 +374,64 @@ def isTableSolvable(matrix):
     if inversions % 2 != 0:
         return False
     return True
+
+def generate_sons(matrix):
+    matrixToVisit = []
+
+    up,right,down,left = allMoves(matrix)
+    x_axis, y_axis = findZero(matrix)
+
+    if up:
+        newMatrix = goUp(matrix, x_axis, y_axis)
+        matrixToVisit.append(newMatrix)
+
+    if right:
+        newMatrix = goRight(matrix, x_axis, y_axis)
+        matrixToVisit.append(newMatrix)
+
+    if down:
+        newMatrix = goDown(matrix, x_axis, y_axis)
+        matrixToVisit.append(newMatrix)
+    if left:
+        newMatrix = goLeft(matrix, x_axis, y_axis)
+        matrixToVisit.append(newMatrix)
+
+    return matrixToVisit
+
+def IDS(matrix):
+    global visited
+    visited = []
+    
+    
+    depth_goal = 0
+    found = False
+    while not found:
+        result_given_level = IDSRecursive(matrix, depth_goal)
+        if result_given_level is not None:
+            print("Actual node: " + str(matrix))
+            print("puzzle solved")
+            found = True
+        depth_goal = depth_goal + 1
+
+def IDSRecursive(matrix, level):   
+    if isSolved(matrix):                
+            return matrix
+    # TODO: change to elif ?
+    if level == 0:
+        # base case of the recursion, just return None because answer not found
+        return None
+    else:
+        sons = generate_sons(matrix)
+        for son in sons:
+            if son not in visited:
+                visited.append(son)
+                answer = IDSRecursive(son, level-1)
+                if answer is not None:
+                    print("siuuuuuu")
+                    return answer
+                
+        # TODO: change to eelse ?
+        # calculate all posible sons of the current matrix
+        # TODO: use function specially to create sons ?
+        # TODO: hwo about the visited node ? need to don't cycle ad vita eternam
+        # for each available son call the IDSRecursive function
