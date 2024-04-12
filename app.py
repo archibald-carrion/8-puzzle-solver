@@ -15,4 +15,5 @@ class App():
         print("solving the puzzle: ")
         print(matrix_solvable)
         # IA.breadthFirst(matrix_solvable)
-        IA.greedy(matrix_solvable)
+        # IA.greedy(matrix_solvable)
+        IA.IDS(matrix_solvable)
