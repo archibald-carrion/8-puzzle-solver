@@ -250,6 +250,10 @@ def greedy(matrix):
                 # found = isSolved(node)
                 up,right,down,left = allMoves(node)
                 x_axis, y_axis = findZero(node)
+                
+                # we use a vector of 4 elements to store the heuristic values of the 4 possible moves
+                # the heuristic value of a move is -1 if the move is not possible
+                heuristic_values = [-1, -1, -1, -1]
 
                 if up:
                     newNode = goUp(node, x_axis, y_axis)
@@ -258,7 +262,8 @@ def greedy(matrix):
                         #print("up")
                         queue.append(newNode)
                     
-                    # delete newNode
+                        # delete newNode
+                        heuristic_values[0] = calculate_heuristic_value(newNode)
                     newNode = None
 
                         #print("initial node: " + str(node))
@@ -270,6 +275,7 @@ def greedy(matrix):
                         #print("right")
                         queue.append(newNode)
                     
+                        heuristic_values[1] = calculate_heuristic_value(newNode)
                     # delete newNode
                     newNode = None
 
@@ -282,7 +288,7 @@ def greedy(matrix):
                     if newNode not in visited:
                         #print("down")
                         queue.append(newNode)
-                    
+                        heuristic_values[2] = calculate_heuristic_value(newNode)
                     # delete newNode
                     newNode = None
 
@@ -295,9 +301,44 @@ def greedy(matrix):
                     if newNode not in visited:
                         #print("left")
                         queue.append(newNode)
+
+                        heuristic_values[3] = calculate_heuristic_value(newNode)
                     
                     # delete newNode
                     newNode = None
+
+                # find the move with the lowest heuristic value
+                min_heuristic = 0
+
+                # find the first move that is possible
+                for i in range(4):
+                    if heuristic_values[i] != -1:
+                        min_heuristic = i
+                        break
+
+                # find the move with the lowest heuristic value
+                for i in range(4):
+                    if heuristic_values[i] != -1:
+                        if heuristic_values[i] < heuristic_values[min_heuristic]:
+                            min_heuristic = i
+                
+                # add the move with the lowest heuristic value to the queue
+                # there is no need to check if the move is possible because it has already been checked
+                if min_heuristic == 0:
+                    newNode = goUp(node, x_axis, y_axis)
+                    queue.append(newNode)
+                if min_heuristic == 1:
+                    newNode = goRight(node, x_axis, y_axis)
+                    queue.append(newNode)
+                if min_heuristic == 2:
+                    newNode = goDown(node, x_axis, y_axis)
+                    queue.append(newNode)
+                if min_heuristic == 3:
+                    newNode = goLeft(node, x_axis, y_axis)
+                    queue.append(newNode)
+                    
+                
+
 
                         # queue.append(newNode)
                     # queue.append(newNode)
