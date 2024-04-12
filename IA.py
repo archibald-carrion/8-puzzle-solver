@@ -276,7 +276,7 @@ def greedy(matrix):
                     #print("newNode: " + str(newNode))
                     if newNode not in visited:
                         #print("up")
-                        queue.append(newNode)
+                        # queue.append(newNode)
                     
                         # delete newNode
                         heuristic_values[0] = calculate_heuristic_value(newNode)
@@ -289,7 +289,7 @@ def greedy(matrix):
                     #print("newNode: " + str(newNode))
                     if newNode not in visited:
                         #print("right")
-                        queue.append(newNode)
+                        # queue.append(newNode)
                     
                         heuristic_values[1] = calculate_heuristic_value(newNode)
                     # delete newNode
@@ -303,7 +303,7 @@ def greedy(matrix):
                     #print("newNode: " + str(newNode))
                     if newNode not in visited:
                         #print("down")
-                        queue.append(newNode)
+                        #queue.append(newNode)
                         heuristic_values[2] = calculate_heuristic_value(newNode)
                     # delete newNode
                     newNode = None
@@ -316,7 +316,7 @@ def greedy(matrix):
                     #print("newNode: " + str(newNode))
                     if newNode not in visited:
                         #print("left")
-                        queue.append(newNode)
+                        # queue.append(newNode)
 
                         heuristic_values[3] = calculate_heuristic_value(newNode)
                     
