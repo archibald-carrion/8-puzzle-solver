@@ -1,20 +1,15 @@
 from collections import deque
 
-matrix_solvable = [[1, 4, 3],
-                   [7, 6, 5],
-                   [8, 2, 0]]
-
 class Board:
   def __init__(self,matrix):
     self.matrix = matrix
 
-
+# TODO: delete this class if not used
 class Movement:
   def __init__(self, state, pastMove, level):
     self.state = state
     self.pastMove = pastMove
     self.level = level
-
 
 # find the zero in the matrix
 def findZero(board):
@@ -31,48 +26,7 @@ def findZero(board):
         if not(found):
             y_axis = y_axis + 1
         
-    
     return x_axis, y_axis
-
-# try to move the zero to adjacent position
-# def tryMove():
-#     #find zero
-#     x_axis, y_axis = findZero(matrix_solvable)
-    
-#     # 0 states
-#     print(x_axis, y_axis)
-
-#     can_go_up = (y_axis > 0)
-#     can_go_right = (x_axis < 2)
-#     can_go_down = (y_axis < 2)
-#     can_go_left = (x_axis > 0)
-    
-#     if can_go_up:
-#        print('case 0')
-#        print(matrix_solvable[y_axis][x_axis])
-
-#        temp_value = matrix_solvable[y_axis-1][x_axis]
-#        matrix_solvable[y_axis-1][x_axis] = 0
-#        print(matrix_solvable[y_axis][x_axis])
-#        matrix_solvable[y_axis][x_axis] = temp_value
-
-#     elif (can_go_right):
-#        print('case 1')
-#        temp_value = matrix_solvable[y_axis][x_axis+1]
-#        matrix_solvable[y_axis][x_axis+1] = 0
-#        matrix_solvable[y_axis][x_axis] = temp_value
-
-#     elif(can_go_down):
-#        print('case 2')
-#        temp_value = matrix_solvable[y_axis+1][x_axis]
-#        matrix_solvable[y_axis+1][x_axis] = 0
-#        matrix_solvable[y_axis][x_axis] = temp_value
-
-#     elif (can_go_left):
-#        print('case 3')
-#        temp_value = matrix_solvable[y_axis][x_axis-1]
-#        matrix_solvable[y_axis][x_axis-1] = 0
-#        matrix_solvable[y_axis][x_axis] = temp_value
 
 def goUp(board,x_axis,y_axis):
     #print('case 0')
@@ -147,27 +101,6 @@ def isSolved(board):
     if board == solved:
         same = True
     return same
-
-# def widthFirst():
-#     found = False
-#     matrix = matrix_solvable
-#     #Iteration for each level
-#     while not(found):
-#         found = isSolved(matrix)
-#         up,right,down,left = allMoves(matrix)
-#         nextLevel = []
-#         if up:
-#             newNode = goUp(matrix)
-#             nextLevel.append(newNode)
-#         if right:
-#             newNode = goRight(matrix)
-#             nextLevel.append(newNode)
-#         if down:
-#             newNode = goDown(matrix)
-#             nextLevel.append(newNode)
-#         if left:
-#             newNode = goLeft(matrix)
-#             nextLevel.append(newNode)
 
 # Function to check if the matrix is currently in the visited set
 def is_matrix_visited(matrix, visited):
@@ -275,6 +208,90 @@ def breadthFirst(matrix):
                         # queue.append(newNode)
                     # queue.append(newNode)
 
+# greedy algorithm uses the same logic as the breadth first algorithm but additionally
+# uses a heuristic to find the solution
+def greedy(matrix):
+    found = False
+    #list
+    visited = []
+    #queue
+    #queue = deque([matrix])
+    queue = deque()
+    queue.append(matrix)
+    counter = 0
+    #While queue has contents
+    while queue and not found:
+        #print("queue: " + str(queue))
+        node = queue.popleft()
+        counter = counter + 1
+        if node not in visited:
+            #print("Actual node: " + str(node))
+            # check if the node is the solution
+            if isSolved(node):
+                # empty the queue
+                print("Actual node: " + str(node))
+                print("puzzle solved")
+                print("After " + str(counter) + " iterations")
+                queue.clear()
+                found = True
+
+            add_to_visited(node, visited)
+
+            if not found:
+                # found = isSolved(node)
+                up,right,down,left = allMoves(node)
+                x_axis, y_axis = findZero(node)
+
+                if up:
+                    newNode = goUp(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("up")
+                        queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        #print("initial node: " + str(node))
+
+                if right:
+                    newNode = goRight(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("right")
+                        queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
+                    # queue.append(newNode)
+
+                if down:
+                    newNode = goDown(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("down")
+                        queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
+                    # queue.append(newNode)
+
+                if left:
+                    newNode = goLeft(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("left")
+                        queue.append(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
+                    # queue.append(newNode)
 
 # Function to check if the matrix is solvable
 # a matrix is solvable if the number of inversions is even
