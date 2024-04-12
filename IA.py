@@ -1,20 +1,15 @@
 from collections import deque
 
-matrix_solvable = [[1, 4, 3],
-                   [7, 6, 5],
-                   [8, 2, 0]]
-
 class Board:
   def __init__(self,matrix):
     self.matrix = matrix
 
-
+# TODO: delete this class if not used
 class Movement:
   def __init__(self, state, pastMove, level):
     self.state = state
     self.pastMove = pastMove
     self.level = level
-
 
 # find the zero in the matrix
 def findZero(board):
@@ -31,48 +26,7 @@ def findZero(board):
         if not(found):
             y_axis = y_axis + 1
         
-    
     return x_axis, y_axis
-
-# try to move the zero to adjacent position
-# def tryMove():
-#     #find zero
-#     x_axis, y_axis = findZero(matrix_solvable)
-    
-#     # 0 states
-#     print(x_axis, y_axis)
-
-#     can_go_up = (y_axis > 0)
-#     can_go_right = (x_axis < 2)
-#     can_go_down = (y_axis < 2)
-#     can_go_left = (x_axis > 0)
-    
-#     if can_go_up:
-#        print('case 0')
-#        print(matrix_solvable[y_axis][x_axis])
-
-#        temp_value = matrix_solvable[y_axis-1][x_axis]
-#        matrix_solvable[y_axis-1][x_axis] = 0
-#        print(matrix_solvable[y_axis][x_axis])
-#        matrix_solvable[y_axis][x_axis] = temp_value
-
-#     elif (can_go_right):
-#        print('case 1')
-#        temp_value = matrix_solvable[y_axis][x_axis+1]
-#        matrix_solvable[y_axis][x_axis+1] = 0
-#        matrix_solvable[y_axis][x_axis] = temp_value
-
-#     elif(can_go_down):
-#        print('case 2')
-#        temp_value = matrix_solvable[y_axis+1][x_axis]
-#        matrix_solvable[y_axis+1][x_axis] = 0
-#        matrix_solvable[y_axis][x_axis] = temp_value
-
-#     elif (can_go_left):
-#        print('case 3')
-#        temp_value = matrix_solvable[y_axis][x_axis-1]
-#        matrix_solvable[y_axis][x_axis-1] = 0
-#        matrix_solvable[y_axis][x_axis] = temp_value
 
 def goUp(board,x_axis,y_axis):
     #print('case 0')
@@ -90,8 +44,6 @@ def goUp(board,x_axis,y_axis):
     return matrix
 
 def goRight(board,x_axis,y_axis):
-    #print('case 1')
-
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
@@ -148,27 +100,6 @@ def isSolved(board):
         same = True
     return same
 
-# def widthFirst():
-#     found = False
-#     matrix = matrix_solvable
-#     #Iteration for each level
-#     while not(found):
-#         found = isSolved(matrix)
-#         up,right,down,left = allMoves(matrix)
-#         nextLevel = []
-#         if up:
-#             newNode = goUp(matrix)
-#             nextLevel.append(newNode)
-#         if right:
-#             newNode = goRight(matrix)
-#             nextLevel.append(newNode)
-#         if down:
-#             newNode = goDown(matrix)
-#             nextLevel.append(newNode)
-#         if left:
-#             newNode = goLeft(matrix)
-#             nextLevel.append(newNode)
-
 # Function to check if the matrix is currently in the visited set
 def is_matrix_visited(matrix, visited):
     for visited_node in visited:
@@ -181,7 +112,6 @@ def is_matrix_visited(matrix, visited):
             return True
     return False
 
-
 def add_to_visited(matrix, visited):
     # create a matrix with 3 rows and 3 columns
     matrix_copy = [[0 for i in range(3)] for j in range(3)]
@@ -191,7 +121,7 @@ def add_to_visited(matrix, visited):
             
     visited.append(matrix_copy)
 
-
+# breadth first algorithm
 def breadthFirst(matrix):
     found = False
     #list
@@ -275,6 +205,7 @@ def breadthFirst(matrix):
                         # queue.append(newNode)
                     # queue.append(newNode)
 
+
 def matrixRating(matrix):
     rating = 0
     x = 0
@@ -290,10 +221,138 @@ def matrixRating(matrix):
     
     return rating
 
+def calculate_heuristic_value(matrix):
+    # the heuristic value is the sum of the manhattan distances of each number to its correct position
+    heuristic = 0
+    for i in range(3):
+        for j in range(3):
+            if matrix[i][j] != 0:
+                x_axis = (matrix[i][j] - 1) % 3
+                y_axis = (matrix[i][j] - 1) // 3
+                heuristic = heuristic + abs(x_axis - j) + abs(y_axis - i)
+    return heuristic
 
-def IDS(matrix):
-    
-    return matrix
+# greedy algorithm uses the same logic as the breadth first algorithm but additionally
+# uses a heuristic to find the solution
+def greedy(matrix):
+    found = False
+    #list
+    visited = []
+    #queue
+    #queue = deque([matrix])
+    queue = deque()
+    queue.append(matrix)
+    counter = 0
+    #While queue has contents
+    while queue and not found:
+        #print("queue: " + str(queue))
+        node = queue.popleft()
+        counter = counter + 1
+        if node not in visited:
+            #print("Actual node: " + str(node))
+            # check if the node is the solution
+            if isSolved(node):
+                # empty the queue
+                print("Actual node: " + str(node))
+                print("puzzle solved")
+                print("After " + str(counter) + " iterations")
+                queue.clear()
+                found = True
+
+            add_to_visited(node, visited)
+
+            # all 4 possible moves will be checked and only the one with the lowest heuristic value will be added to the queue
+            if not found:
+                # found = isSolved(node)
+                up,right,down,left = allMoves(node)
+                x_axis, y_axis = findZero(node)
+                
+                # we use a vector of 4 elements to store the heuristic values of the 4 possible moves
+                # the heuristic value of a move is -1 if the move is not possible
+                heuristic_values = [-1, -1, -1, -1]
+
+                if up:
+                    newNode = goUp(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("up")
+                        queue.append(newNode)
+                    
+                        # delete newNode
+                        heuristic_values[0] = calculate_heuristic_value(newNode)
+                    newNode = None
+
+                        #print("initial node: " + str(node))
+
+                if right:
+                    newNode = goRight(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("right")
+                        queue.append(newNode)
+                    
+                        heuristic_values[1] = calculate_heuristic_value(newNode)
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
+                    # queue.append(newNode)
+
+                if down:
+                    newNode = goDown(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("down")
+                        queue.append(newNode)
+                        heuristic_values[2] = calculate_heuristic_value(newNode)
+                    # delete newNode
+                    newNode = None
+
+                        # queue.append(newNode)
+                    # queue.append(newNode)
+
+                if left:
+                    newNode = goLeft(node, x_axis, y_axis)
+                    #print("newNode: " + str(newNode))
+                    if newNode not in visited:
+                        #print("left")
+                        queue.append(newNode)
+
+                        heuristic_values[3] = calculate_heuristic_value(newNode)
+                    
+                    # delete newNode
+                    newNode = None
+
+                # find the move with the lowest heuristic value
+                min_heuristic = 0
+
+                # find the first move that is possible
+                for i in range(4):
+                    if heuristic_values[i] != -1:
+                        min_heuristic = i
+                        break
+
+                # find the move with the lowest heuristic value
+                for i in range(4):
+                    if heuristic_values[i] != -1:
+                        if heuristic_values[i] < heuristic_values[min_heuristic]:
+                            min_heuristic = i
+                
+                # add the move with the lowest heuristic value to the queue
+                # there is no need to check if the move is possible because it has already been checked
+                if min_heuristic == 0:
+                    newNode = goUp(node, x_axis, y_axis)
+                    queue.append(newNode)
+                if min_heuristic == 1:
+                    newNode = goRight(node, x_axis, y_axis)
+                    queue.append(newNode)
+                if min_heuristic == 2:
+                    newNode = goDown(node, x_axis, y_axis)
+                    queue.append(newNode)
+                if min_heuristic == 3:
+                    newNode = goLeft(node, x_axis, y_axis)
+                    queue.append(newNode)
+
 # Function to check if the matrix is solvable
 # a matrix is solvable if the number of inversions is even
 # an inversion is when a number is greater than another number that is after it
