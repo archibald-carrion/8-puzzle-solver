@@ -18,4 +18,4 @@ if errorlevel 1 (
 )
 
 REM Run your Python app
-python main.py > output.txt
+python main.py

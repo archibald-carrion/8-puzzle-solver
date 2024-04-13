@@ -1,5 +1,9 @@
 from collections import deque
 
+# visited is a global variable that will store all the visited nodes
+# it is used in the IDS algorithm to check if a node has already been visited
+visited = []
+
 class Board:
   def __init__(self,matrix):
     self.matrix = matrix
@@ -396,16 +400,20 @@ def generate_sons(matrix):
         newMatrix = goLeft(matrix, x_axis, y_axis)
         matrixToVisit.append(newMatrix)
 
+    print("Sons: " + str(matrixToVisit))
+
     return matrixToVisit
 
 def IDS(matrix):
-    global visited
-    visited = []
+    # global visited
+    # visited = []
     depth_goal = 0
     found = False
     while not found:
         #print("Starting matrix " + str(matrix) + "\nDepth goal: " + str(depth_goal))
         print("Nivel " + str(depth_goal))
+        # at the start of each iteration the visited list is cleared
+        visited.clear()
         result_given_level = IDSRecursive(matrix, depth_goal)
         if result_given_level is not None:
             #print("Actual node: " + str(matrix))
@@ -413,7 +421,7 @@ def IDS(matrix):
             found = True
         depth_goal = depth_goal + 1
 
-def IDSRecursive(matrix, level):   
+def IDSRecursive(matrix, level):
     if isSolved(matrix):       
             print("La solucion es: " + str(matrix))         
             return matrix
@@ -424,7 +432,7 @@ def IDSRecursive(matrix, level):
     else:
         sons = generate_sons(matrix)
         for son in sons:
-            print("Son : " + str(son) + " de matriz: " + str(matrix))         
+            print("Son : " + str(son) + " de matriz: " + str(matrix))
             if son not in visited:
                 print("Visitado por primera vez")
                 visited.append(son)
@@ -433,8 +441,8 @@ def IDSRecursive(matrix, level):
                 if answer is not None:
                     print("siuuuuuu")
                     return answer
-                print("Retorno None")
-                return None
+                #print("Retorno None")
+    return None
                 
         # TODO: change to eelse ?
         # calculate all posible sons of the current matrix
