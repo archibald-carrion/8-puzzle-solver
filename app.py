@@ -1,18 +1,19 @@
 import os
 import IA   # TODO: change name of the file to something more significant
+import time
 
 
-# matrix_solvable = [[1, 4, 3],
-#                     [7, 6, 5],
-#                     [8, 2, 0]]
+matrix_solvable = [[1, 4, 3],
+                    [7, 6, 5],
+                    [8, 2, 0]]
 
 # matrix_solvable = [[1, 2, 3],
 #                    [4, 5, 6],
 #                    [7, 0, 8]]
 
-matrix_solvable = [[1, 2, 3],
-                    [4, 5, 6],
-                    [0, 7, 8]]
+# matrix_solvable = [[1, 2, 3],
+#                     [4, 5, 6],
+#                     [0, 7, 8]]
 
 class App():
     def __init__(self):
@@ -22,9 +23,17 @@ class App():
         print('App is running')
         print("solving the puzzle: ")
         print(matrix_solvable)
-        # IA.breadthFirst(matrix_solvable)
+
+        inicio_tiempo = time.time()
+        IA.breadthFirst(matrix_solvable)
         # IA.greedy(matrix_solvable)
-        IA.IDS(matrix_solvable)
+        # IA.IDS(matrix_solvable)
+
+        fin_tiempo = time.time()
+
+        tiempo_transcurrido = fin_tiempo - inicio_tiempo
+
+        print(f"Tiempo transcurrido: {tiempo_transcurrido} segundos")
 
 
         

@@ -400,7 +400,7 @@ def generate_sons(matrix):
         newMatrix = goLeft(matrix, x_axis, y_axis)
         matrixToVisit.append(newMatrix)
 
-    print("Sons: " + str(matrixToVisit))
+    # print("Sons: " + str(matrixToVisit))
 
     return matrixToVisit
 
@@ -432,14 +432,14 @@ def IDSRecursive(matrix, level):
     else:
         sons = generate_sons(matrix)
         for son in sons:
-            print("Son : " + str(son) + " de matriz: " + str(matrix))
+            # print("Son : " + str(son) + " de matriz: " + str(matrix))
             if son not in visited:
-                print("Visitado por primera vez")
+                # print("Visitado por primera vez")
                 visited.append(son)
-                print("Manda nueva matriz: " + str(son) + " con nivel: " + str(level-1))  
+                # print("Manda nueva matriz: " + str(son) + " con nivel: " + str(level-1))  
                 answer = IDSRecursive(son, level-1)
                 if answer is not None:
-                    print("siuuuuuu")
+                    # print("siuuuuuu")
                     return answer
                 #print("Retorno None")
     return None
