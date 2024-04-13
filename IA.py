@@ -401,20 +401,20 @@ def generate_sons(matrix):
 def IDS(matrix):
     global visited
     visited = []
-    
-    
     depth_goal = 0
     found = False
     while not found:
+        #print("Starting matrix " + str(matrix) + "\nDepth goal: " + str(depth_goal))
         result_given_level = IDSRecursive(matrix, depth_goal)
         if result_given_level is not None:
-            print("Actual node: " + str(matrix))
+            #print("Actual node: " + str(matrix))
             print("puzzle solved")
             found = True
         depth_goal = depth_goal + 1
 
 def IDSRecursive(matrix, level):   
-    if isSolved(matrix):                
+    if isSolved(matrix):       
+            print("La solucion es: " + str(matrix))         
             return matrix
     # TODO: change to elif ?
     if level == 0:
