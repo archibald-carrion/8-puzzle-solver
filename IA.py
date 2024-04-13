@@ -405,6 +405,7 @@ def IDS(matrix):
     found = False
     while not found:
         #print("Starting matrix " + str(matrix) + "\nDepth goal: " + str(depth_goal))
+        print("Nivel " + str(depth_goal))
         result_given_level = IDSRecursive(matrix, depth_goal)
         if result_given_level is not None:
             #print("Actual node: " + str(matrix))
@@ -423,12 +424,17 @@ def IDSRecursive(matrix, level):
     else:
         sons = generate_sons(matrix)
         for son in sons:
+            print("Son : " + str(son) + " de matriz: " + str(matrix))         
             if son not in visited:
+                print("Visitado por primera vez")
                 visited.append(son)
+                print("Manda nueva matriz: " + str(son) + " con nivel: " + str(level-1))  
                 answer = IDSRecursive(son, level-1)
                 if answer is not None:
                     print("siuuuuuu")
                     return answer
+                print("Retorno None")
+                return None
                 
         # TODO: change to eelse ?
         # calculate all posible sons of the current matrix
