@@ -17,3 +17,6 @@ class App():
         # IA.breadthFirst(matrix_solvable)
         # IA.greedy(matrix_solvable)
         IA.IDS(matrix_solvable)
+
+
+        
