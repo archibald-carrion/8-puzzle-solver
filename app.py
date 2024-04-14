@@ -1,6 +1,7 @@
 import os
 import eight_puzzle_solver
 import time
+import psutil
 import matrices
           
 class App():
@@ -61,3 +62,8 @@ class App():
             else:
                 print("Invalid algorithm id")
                 return
+
+            # Get memory usage
+            process = psutil.Process()
+            memory_usage = process.memory_info().rss  # in bytes
+            print("Memory Usage:", memory_usage, "bytes")

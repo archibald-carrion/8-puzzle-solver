@@ -203,7 +203,7 @@ def matrixRating(matrix):
     for i in range(3):
         for j in range(3):
             value = matrix[j][i]
-            print(value)
+            # print(value)
             x = coordinates_solved[value-1][0] + j
             y = coordinates_solved[value-1][1] + i
             rating = rating + x + y
@@ -224,9 +224,11 @@ def greedy(matrix):
         counter = counter + 1
         if node not in visited:
             if isSolved(node):
-                print("Actual node: " + str(node))
-                print("puzzle solved")
-                print("After " + str(counter) + " iterations")
+                # TODO: do not print following lines in the final version for
+                # time performance
+                # print("Actual node: " + str(node))
+                # print("puzzle solved")
+                # print("After " + str(counter) + " iterations")
                 queue.clear() # empty the queue
                 found = True
 
@@ -325,12 +327,12 @@ def IDS(matrix):
     depth_goal = 0
     found = False
     while not found:
-        print("Nivel " + str(depth_goal))
+        # print("Nivel " + str(depth_goal))
         # at the start of each iteration the visited list is cleared
         visited.clear()
         result_given_level = IDSRecursive(matrix, depth_goal)
         if result_given_level is not None:
-            print("puzzle solved")
+            # print("puzzle solved")
             found = True
         depth_goal = depth_goal + 1
 
