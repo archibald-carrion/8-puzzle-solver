@@ -24,67 +24,63 @@ matrix_solvable_5 = [[0, 1, 3],
                      [8, 2, 7],
                      [4, 6, 5]]
                      
-# change all the following matrices to new matrices
+matrix_solvable_6 = [[1, 3, 8],
+                     [7, 2, 4],
+                     [5, 6, 0]]
 
-matrix_solvable_6 = [[1, 2, 3],
-                     [4, 6, 8],
-                     [7, 5, 0]]
+matrix_solvable_7 = [[4, 8, 1],
+                     [2, 0, 7],
+                     [6, 3, 5]]
 
-matrix_solvable_7 = [[7, 3, 6],
-                     [5, 1, 2],
-                     [8, 0, 4]]
+matrix_solvable_8 = [[2, 8, 5],
+                     [6, 7, 0],
+                     [1, 3, 4]]
 
-matrix_solvable_8 = [[0, 8, 2],
-                     [1, 4, 3],
-                     [6, 5, 7]]
-
-matrix_solvable_9 = [[1, 2, 3],
-                     [4, 8, 7],
-                     [6, 0, 5]]
+matrix_solvable_9 = [[0, 7, 6],
+                     [8, 4, 3],
+                     [2, 1, 5]]
                      
-matrix_solvable_10 = [[1, 2, 3],
-                     [4, 6, 8],
-                     [7, 5, 0]]
+matrix_solvable_10 = [[4, 0, 7],
+                     [2, 5, 3],
+                     [6, 8, 1]]
 
-matrix_solvable_11 = [[1, 2, 3],
-                     [4, 8, 7],
-                     [6, 0, 5]]
+matrix_solvable_11 = [[1, 5, 0],
+                     [3, 8, 2],
+                     [4, 6, 7]]
                      
-matrix_solvable_12 = [[1, 2, 3],
-                     [4, 6, 8],
-                     [7, 5, 0]]
+matrix_solvable_12 = [[4, 3, 8],
+                     [1, 6, 0],
+                     [7, 2, 5]]
 
-matrix_solvable_13 = [[7, 3, 6],
-                     [5, 1, 2],
-                     [8, 0, 4]]
+matrix_solvable_13 = [[2, 3, 6],
+                     [1, 7, 0],
+                     [8, 5, 4]]
 
-matrix_solvable_14 = [[0, 8, 2],
-                     [1, 4, 3],
-                     [6, 5, 7]]
+matrix_solvable_14 = [[0, 2, 3],
+                     [7, 4, 5],
+                     [1, 6, 8]]
 
-matrix_solvable_15 = [[1, 2, 3],
-                     [4, 8, 7],
-                     [6, 0, 5]]
+matrix_solvable_15 = [[1, 2, 5],
+                     [6, 0, 8],
+                     [3, 7, 4]]
                      
-matrix_solvable_16 = [[1, 2, 3],
-                     [4, 6, 8],
-                     [7, 5, 0]]
+matrix_solvable_16 = [[0, 6, 4],
+                     [7, 8, 1],
+                     [3, 5, 2]]
 
-matrix_solvable_17 = [[7, 3, 6],
-                     [5, 1, 2],
-                     [8, 0, 4]]
+matrix_solvable_17 = [[3, 0, 7],
+                     [4, 2, 5],
+                     [1, 8, 6]]
 
-matrix_solvable_18 = [[0, 8, 2],
-                     [1, 4, 3],
-                     [6, 5, 7]]
+matrix_solvable_18 = [[7, 6, 1],
+                     [5, 0, 2],
+                     [3, 4, 8]]
 
-matrix_solvable_19 = [[1, 2, 3],
-                     [4, 8, 7],
-                     [6, 0, 5]]
-
+matrix_solvable_19 = [[4, 2, 7],
+                     [8, 3, 1],
+                     [6, 5, 0]]
 
 # unsolvable matrix
-
 matrix_unsolvable_1 = [[1, 7, 3],
                        [0, 6, 2],
                        [8, 4, 5]]
