@@ -14,7 +14,7 @@ class App():
         # previous format was better because it shows the matrix in a more readable way
         # but it stops being viable when the user has to choose a matrix among 20
         matrixId = int(input("Choose matrix to solve from 0 to 19: "))
-        selected_matrix = matrices.matrices_maping.get(matrixId)
+        selected_matrix = matrices.matricesMaping.get(matrixId)
 
         algorithmId = int(input("Choose algorithm to solve the puzzle: \n0. Ancho primero\n1. Greedy\n2. IDS\n3. IDS star\n"))
 
