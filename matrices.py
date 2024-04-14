@@ -16,16 +16,16 @@ matrix_solvable_3 = [[7, 3, 6],
                      [5, 1, 2],
                      [8, 0, 4]]
 
+matrix_solvable_4 = [[1, 2, 5],
+                     [4, 0, 8],
+                     [6, 7, 3]]
+
+matrix_solvable_5 = [[0, 1, 3],
+                     [8, 2, 7],
+                     [4, 6, 5]]
+                     
 # change all the following matrices to new matrices
 
-matrix_solvable_4 = [[0, 8, 2],
-                     [1, 4, 3],
-                     [6, 5, 7]]
-
-matrix_solvable_5 = [[1, 2, 3],
-                     [4, 8, 7],
-                     [6, 0, 5]]
-                     
 matrix_solvable_6 = [[1, 2, 3],
                      [4, 6, 8],
                      [7, 5, 0]]

@@ -2,26 +2,6 @@ import os
 import IA   # TODO: change name of the file to something more significant
 import time
 import matrices
-  
-def isTableSolvable(matrix):
-    # Flatten the matrix and include 0 if it's present
-    flat_matrix = [elem for row in matrix for elem in row]
-    if 0 not in flat_matrix:
-        flat_matrix.append(0)
-
-    # Count inversions
-    inversions = 0
-    for i in range(len(flat_matrix)):
-        for j in range(i + 1, len(flat_matrix)):
-            if flat_matrix[i] > flat_matrix[j] and flat_matrix[j] != 0:
-                inversions += 1
-
-    # Check if the puzzle is solvable based on inversion count and blank position
-    blank_row_from_bottom = (len(matrix) - 1) - (flat_matrix.index(0) // len(matrix[0]))
-    if len(matrix[0]) % 2 == 0:
-        return (inversions % 2 == 0) == (blank_row_from_bottom % 2 == 1)
-    else:
-        return inversions % 2 == 0
           
 class App():
     def __init__(self):
@@ -33,10 +13,12 @@ class App():
 
         # previous format was better because it shows the matrix in a more readable way
         # but it stops being viable when the user has to choose a matrix among 20
-        # print("Choose matrix to solve from 0 to 19:\n")
         matrix_id = int(input("Choose matrix to solve from 0 to 19: "))
         selected_matrix = matrices.matrices_maping.get(matrix_id)
 
+        algorithm_id = int(input("Choose algorithm to solve the puzzle: \n0. Ancho primero\n1. Greedy\n2. IDS\n3. IDS star\n"))
+
+        # print("Choose matrix to solve from 0 to 19:\n")
         # selected_matrix
 
         # add input to now wich algorithm to use
@@ -77,52 +59,88 @@ class App():
         print("solving the puzzle: ")
         print(selected_matrix)
         
-        if isTableSolvable(selected_matrix) == False:
+        if IA.isTableSolvable(selected_matrix) == False:
             print("The puzzle is not solvable")
         else:
             print("The puzzle is solvable")
-            #Ancho Prime
-            inicio_tiempo = time.time()
 
-            IA.breadthFirst(selected_matrix)
-
-            fin_tiempo = time.time()
+            # Breadth First
+            if algorithm_id == 0:
+                print("Executing breadthFirst")
+                start_time = time.time()
+                IA.breadthFirst(selected_matrix)
+                end_time = time.time()
+                print("Time elapsed in seconds: ", end_time - start_time)
             
-            tiempo_transcurrido = fin_tiempo - inicio_tiempo
+            # Greedy
+            elif algorithm_id == 1:
+                print("Executing greedy")
+                start_time = time.time()
+                IA.greedy(selected_matrix)
+                end_time = time.time()
+                print("Time elapsed in seconds: ", end_time - start_time)
+            
+            # IDS
+            elif algorithm_id == 2:
+                print("Executing IDS")
+                start_time = time.time()
+                IA.IDS(selected_matrix)
+                end_time = time.time()
+                print("Time elapsed in seconds: ", end_time - start_time)
+            
+            # IDS star
+            elif algorithm_id == 3:
+                print("Executing IDS star")
+                start_time = time.time()
+                IA.IDS_star(selected_matrix)
+                end_time = time.time()
+                print("Time elapsed in seconds: ", end_time - start_time)
+            
+            # Invalid algorithm id
+            else:
+                print("Invalid algorithm id")
+                return
 
-            print(f"Tiempo transcurrido en algoritmo ancho primero: {tiempo_transcurrido} segundos")
+
+            #Ancho Prime
+
+
+            
+            # tiempo_transcurrido = fin_tiempo - inicio_tiempo
+
+            # print(f"Tiempo transcurrido en algoritmo ancho primero: {tiempo_transcurrido} segundos")
 
             #Greedy
-            inicio_tiempo = time.time()
-            IA.greedy(selected_matrix)
+            # inicio_tiempo = time.time()
+            # IA.greedy(selected_matrix)
 
-            fin_tiempo = time.time()
+            # fin_tiempo = time.time()
             
-            tiempo_transcurrido = fin_tiempo - inicio_tiempo
+            # tiempo_transcurrido = fin_tiempo - inicio_tiempo
 
-            print(f"Tiempo transcurrido en algoritmo greedy: {tiempo_transcurrido} segundos")
+            # print(f"Tiempo transcurrido en algoritmo greedy: {tiempo_transcurrido} segundos")
             
-            #IDS
-            inicio_tiempo = time.time()
+            # #IDS
+            # inicio_tiempo = time.time()
 
-            IA.IDS(selected_matrix)
+            # IA.IDS(selected_matrix)
 
-            fin_tiempo = time.time()
+            # fin_tiempo = time.time()
             
-            tiempo_transcurrido = fin_tiempo - inicio_tiempo
+            # tiempo_transcurrido = fin_tiempo - inicio_tiempo
 
-            print(f"Tiempo transcurrido en algoritmo IDS: {tiempo_transcurrido} segundos")
+            # print(f"Tiempo transcurrido en algoritmo IDS: {tiempo_transcurrido} segundos")
             
-            #IDS star
+            # #IDS star
 
-            inicio_tiempo = time.time()
-            IA.IDS_star(selected_matrix)
+            # inicio_tiempo = time.time()
+            # IA.IDS_star(selected_matrix)
 
-            fin_tiempo = time.time()
+            # fin_tiempo = time.time()
             
-            tiempo_transcurrido = fin_tiempo - inicio_tiempo
+            # tiempo_transcurrido = fin_tiempo - inicio_tiempo
 
-            print(f"Tiempo transcurrido en algoritmo IDA: {tiempo_transcurrido} segundos")
+            # print(f"Tiempo transcurrido en algoritmo IDA: {tiempo_transcurrido} segundos")
 
 
         

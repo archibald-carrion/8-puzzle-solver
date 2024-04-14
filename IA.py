@@ -465,3 +465,22 @@ def IDS_star_recursive(matrix, threshold, movement_cost):
     return None, minimum_cost
 
 
+def isTableSolvable(matrix):
+    # Flatten the matrix and include 0 if it's present
+    flat_matrix = [elem for row in matrix for elem in row]
+    if 0 not in flat_matrix:
+        flat_matrix.append(0)
+
+    # Count inversions
+    inversions = 0
+    for i in range(len(flat_matrix)):
+        for j in range(i + 1, len(flat_matrix)):
+            if flat_matrix[i] > flat_matrix[j] and flat_matrix[j] != 0:
+                inversions += 1
+
+    # Check if the puzzle is solvable based on inversion count and blank position
+    blank_row_from_bottom = (len(matrix) - 1) - (flat_matrix.index(0) // len(matrix[0]))
+    if len(matrix[0]) % 2 == 0:
+        return (inversions % 2 == 0) == (blank_row_from_bottom % 2 == 1)
+    else:
+        return inversions % 2 == 0
