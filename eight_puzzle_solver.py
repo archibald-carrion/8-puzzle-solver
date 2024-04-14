@@ -334,23 +334,29 @@ def IDS(matrix):
             found = True
         depth_goal = depth_goal + 1
 
+# IDSRecursive function is a recursive function that is used in the IDS algorithm
 def IDSRecursive(matrix, level):
-    if isSolved(matrix):       
-            print("La solucion es: " + str(matrix))         
-            return matrix
+    if isSolved(matrix):
+        return matrix
     if level == 0:
         # base case of the recursion, just return None because answer not found
         return None
     else:
         sons = generate_sons(matrix)
+        # for each son of the matrix, check if it has already been visited
+        # if not, add it to the visited list and call the recursive function
         for son in sons:
             if son not in visited:
                 visited.append(son)
                 answer = IDSRecursive(son, level-1)
+                # only case in which the answer is not None is when the puzzle
+                # has been solved
                 if answer is not None:
                     return answer
     return None
 
+# IDS_star function uses the IDS algorithm in addition to the use of a
+# heuristic to solve the 8 puzzle
 def IDS_star(matrix):
     threshold = calculate_heuristic_value(matrix)
     found = False
@@ -359,8 +365,8 @@ def IDS_star(matrix):
         movement_cost = 0
         result_given_level, new_threshold = IDS_star_recursive(matrix, threshold, movement_cost)
         if result_given_level is not None:
-            print("puzzle solved")
-            print("Solution is: " + str(result_given_level))
+            # print("puzzle solved")
+            # print("Solution is: " + str(result_given_level))
             found = True
         threshold = new_threshold # update the threshold with the new threshold
 
@@ -376,6 +382,8 @@ def IDS_star_recursive(matrix, threshold, movement_cost):
     minimum_cost = 1000000000 # a very big number
     for son in sons:
         result_given_level, new_threshold = IDS_star_recursive(son, threshold, movement_cost+1)
+        # only case in which the result_given_level is not None is when the
+        # puzzle has been solved
         if result_given_level is not None:
             return result_given_level, threshold
         if new_threshold < minimum_cost:
@@ -384,6 +392,9 @@ def IDS_star_recursive(matrix, threshold, movement_cost):
     # the calculated threshold is the minimum cost of the sons
     return None, minimum_cost
 
+# isTableSolvable function checks if a matrix is solvable
+# the function uses the inversion count, if the inversion count is even then
+# the matrix is solvable
 def isTableSolvable(matrix):
     # Flatten the matrix and include 0 if it's present
     flat_matrix = [elem for row in matrix for elem in row]
