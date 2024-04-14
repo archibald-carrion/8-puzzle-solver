@@ -4,19 +4,6 @@ from collections import deque
 # it is used in the IDS algorithm to check if a node has already been visited
 visited = []
 
-class Board:
-  def __init__(self,matrix):
-    self.matrix = matrix
-
-# TODO: delete this class if not used
-class Movement:
-  def __init__(self, state, pastMove, level):
-    self.state = state
-    self.pastMove = pastMove
-    self.level = level
-
-
-
 # find the zero in the matrix
 def findZero(board):
     matrix = board
@@ -34,61 +21,64 @@ def findZero(board):
         
     return x_axis, y_axis
 
+# goUp function moves the zero up
+# returns the new matrix
 def goUp(board,x_axis,y_axis):
-    #print('case 0')
-    #Create a new matrix
-
+    # Create a new matrix
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
             matrix[i][j] = board[i][j]
     
-    #matrix = board.copy()
     temp_value = matrix[y_axis-1][x_axis]
     matrix[y_axis-1][x_axis] = 0
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
+# goRight function moves the zero right
+# returns the new matrix
 def goRight(board,x_axis,y_axis):
+    # Create a new matrix
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
             matrix[i][j] = board[i][j]
-    #Create a new matrix
-    #matrix = board.copy()
+
     temp_value = matrix[y_axis][x_axis+1]
     matrix[y_axis][x_axis+1] = 0
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
+# goDown function moves the zero down
+# returns the new matrix
 def goDown(board,x_axis,y_axis):
-    #print('case 2')
-
+    # Create a new matrix
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
             matrix[i][j] = board[i][j]
-    #Create a new matrix
-    #matrix = board.copy()
 
     temp_value = matrix[y_axis+1][x_axis]
     matrix[y_axis+1][x_axis] = 0
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
+# goLeft function moves the zero left
+# returns the new matrix
 def goLeft(board,x_axis,y_axis):
+    # Create a new matrix
     matrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
             matrix[i][j] = board[i][j]
-    #print('case 3')
-    #Create a new matrix
-    #matrix = board.copy()
+
     temp_value = matrix[y_axis][x_axis-1]
     matrix[y_axis][x_axis-1] = 0
     matrix[y_axis][x_axis] = temp_value
     return matrix
 
+# allMoves function returns a tuple with 4 boolean values, each value is True
+# if the zero can move in that direction
 def allMoves(board):
     x_axis, y_axis = findZero(board)
     can_go_up = (y_axis > 0)
@@ -97,6 +87,8 @@ def allMoves(board):
     can_go_left = (x_axis > 0)
     return can_go_up, can_go_right, can_go_down , can_go_left
 
+# isSolved function checks if the matrix is the solved matrix, the goal matrix
+# is harcoded in the function as [[1, 2, 3],[4, 5, 6],[7, 8, 0]]
 def isSolved(board):
     same = False
     solved = [[1, 2, 3],
@@ -106,18 +98,20 @@ def isSolved(board):
         same = True
     return same
 
-# Function to check if the matrix is currently in the visited set
-def is_matrix_visited(matrix, visited):
-    for visited_node in visited:
-        matrix_is_visited = True
-        for i in range(3):
-            for j in range(3):
-                if visited_node[i][j] != matrix[i][j]:
-                    matrix_is_visited = False
-        if matrix_is_visited:
-            return True
-    return False
+# TODO: delete this function if it is not used
+# # is_matrix_visited function checks if a matrix has already been visited
+# def is_matrix_visited(matrix, visited):
+#     for visited_node in visited:
+#         matrix_is_visited = True
+#         for i in range(3):
+#             for j in range(3):
+#                 if visited_node[i][j] != matrix[i][j]:
+#                     matrix_is_visited = False
+#         if matrix_is_visited:
+#             return True
+#     return False
 
+# add_to_visited function adds a matrix to the visited list
 def add_to_visited(matrix, visited):
     # create a matrix with 3 rows and 3 columns
     matrix_copy = [[0 for i in range(3)] for j in range(3)]
@@ -127,90 +121,80 @@ def add_to_visited(matrix, visited):
             
     visited.append(matrix_copy)
 
-# breadth first algorithm
+# breadthFirst function uses the breadth first algorithm to solve the puzzle
 def breadthFirst(matrix):
     found = False
-    #list
-    visited = []
-    #queue
-    #queue = deque([matrix])
+    visited = [] # list
     queue = deque()
     queue.append(matrix)
-    counter = 0
-    #While queue has contents
+    counter = 0  # used to check the # of iterations, only for testingpurposes
+
+    # while the queue is not empty and the solution has not been found
     while queue and not found:
-        # print("not found\n")
-        node = queue.popleft()
+        node = queue.popleft() # get the first element of the queue
         counter = counter + 1
+        # TODO: following condition might not be necessary as the visited list 
+        # is checked before adding a node to the queue
         if node not in visited:
-            #print("Actual node: " + str(node))
             # check if the node is the solution
             if isSolved(node):
-                # empty the queue
-                print("Actual node: " + str(node))
-                print("puzzle solved")
-                print("After " + str(counter) + " iterations")
-                queue.clear()
+                # TODO: do not print following lines in the final version for
+                # time performance
+                # print("Actual node: " + str(node))
+                # print("puzzle solved")
+                # print("After " + str(counter) + " iterations")
+                queue.clear() # empty the queue
                 found = True
 
             add_to_visited(node, visited)
 
             if not found:
-                # found = isSolved(node)
+                # check all 4 possible moves and add them to the queue if they
+                # have not been visited and are possible
                 up,right,down,left = allMoves(node)
                 x_axis, y_axis = findZero(node)
-
+                
                 if up:
                     newNode = goUp(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("up")
                         queue.append(newNode)
-                    
-                    # delete newNode
                     newNode = None
-
-                        #print("initial node: " + str(node))
 
                 if right:
                     newNode = goRight(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("right")
                         queue.append(newNode)
-                    
-                    # delete newNode
                     newNode = None
-
-                        # queue.append(newNode)
-                    # queue.append(newNode)
 
                 if down:
                     newNode = goDown(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("down")
                         queue.append(newNode)
-                    
-                    # delete newNode
                     newNode = None
-
-                        # queue.append(newNode)
-                    # queue.append(newNode)
 
                 if left:
                     newNode = goLeft(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("left")
                         queue.append(newNode)
-                    
-                    # delete newNode
                     newNode = None
 
-                        # queue.append(newNode)
-                    # queue.append(newNode)
+# calculate_heuristic_value function calculates the heuristic value of a matrix
+# the heuristic value is the sum of the manhattan distances of each number to
+# its correct position in an hipothetical "empty" matrix
+def calculate_heuristic_value(matrix):
+    heuristic = 0
+    for i in range(3):
+        for j in range(3):
+            if matrix[i][j] != 0:
+                x_axis = (matrix[i][j] - 1) % 3
+                y_axis = (matrix[i][j] - 1) // 3
+                # abs(x_axis-j) + abs(y_axis-i) is the n_th manhattan distance
+                heuristic = heuristic + abs(x_axis - j) + abs(y_axis - i)
+    return heuristic
 
+# matrixRating is not used in the final version of the app, because it
+# resolves the same problem as the calculate_heuristic_value function, but we
+# decided to keep it because it uses a different but interesting approach
 def matrixRating(matrix):
     rating = 0
     x = 0
@@ -226,49 +210,30 @@ def matrixRating(matrix):
     
     return rating
 
-def calculate_heuristic_value(matrix):
-    # the heuristic value is the sum of the manhattan distances of each number to its correct position
-    heuristic = 0
-    for i in range(3):
-        for j in range(3):
-            if matrix[i][j] != 0:
-                x_axis = (matrix[i][j] - 1) % 3
-                y_axis = (matrix[i][j] - 1) // 3
-                heuristic = heuristic + abs(x_axis - j) + abs(y_axis - i)
-    return heuristic
-
-# greedy algorithm uses the same logic as the breadth first algorithm but additionally
-# uses a heuristic to find the solution
+# greedy algorithm uses the same logic as the breadth first algorithm but
+# in addition it uses a heuristic to find the solution
 def greedy(matrix):
     found = False
-    #list
-    visited = []
-    #queue
-    #queue = deque([matrix])
+    visited = [] # list
     queue = deque()
     queue.append(matrix)
     counter = 0
-    #While queue has contents
+    # while the queue is not empty and the solution has not been found
     while queue and not found:
-        #print("queue: " + str(queue))
         node = queue.popleft()
         counter = counter + 1
         if node not in visited:
-            #print("Actual node: " + str(node))
-            # check if the node is the solution
             if isSolved(node):
-                # empty the queue
                 print("Actual node: " + str(node))
                 print("puzzle solved")
                 print("After " + str(counter) + " iterations")
-                queue.clear()
+                queue.clear() # empty the queue
                 found = True
 
             add_to_visited(node, visited)
 
             # all 4 possible moves will be checked and only the one with the lowest heuristic value will be added to the queue
             if not found:
-                # found = isSolved(node)
                 up,right,down,left = allMoves(node)
                 x_axis, y_axis = findZero(node)
                 
@@ -278,54 +243,26 @@ def greedy(matrix):
 
                 if up:
                     newNode = goUp(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("up")
-                        # queue.append(newNode)
-                    
-                        # delete newNode
                         heuristic_values[0] = calculate_heuristic_value(newNode)
                     newNode = None
 
-                        #print("initial node: " + str(node))
-
                 if right:
                     newNode = goRight(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("right")
-                        # queue.append(newNode)
-                    
                         heuristic_values[1] = calculate_heuristic_value(newNode)
-                    # delete newNode
                     newNode = None
-
-                        # queue.append(newNode)
-                    # queue.append(newNode)
 
                 if down:
                     newNode = goDown(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("down")
-                        #queue.append(newNode)
                         heuristic_values[2] = calculate_heuristic_value(newNode)
-                    # delete newNode
                     newNode = None
-
-                        # queue.append(newNode)
-                    # queue.append(newNode)
 
                 if left:
                     newNode = goLeft(node, x_axis, y_axis)
-                    #print("newNode: " + str(newNode))
                     if newNode not in visited:
-                        #print("left")
-                        # queue.append(newNode)
-
                         heuristic_values[3] = calculate_heuristic_value(newNode)
-                    
-                    # delete newNode
                     newNode = None
 
                 # find the move with the lowest heuristic value
@@ -358,8 +295,7 @@ def greedy(matrix):
                     newNode = goLeft(node, x_axis, y_axis)
                     queue.append(newNode)
 
-
-
+# generate_sons function generates all the possible sons of a given matrix
 def generate_sons(matrix):
     matrixToVisit = []
 
@@ -381,23 +317,19 @@ def generate_sons(matrix):
         newMatrix = goLeft(matrix, x_axis, y_axis)
         matrixToVisit.append(newMatrix)
 
-    # print("Sons: " + str(matrixToVisit))
-
     return matrixToVisit
 
+# IDS function uses the iterative deepening search algorithm to solve the
+# 8 puzzle
 def IDS(matrix):
-    # global visited
-    # visited = []
     depth_goal = 0
     found = False
     while not found:
-        #print("Starting matrix " + str(matrix) + "\nDepth goal: " + str(depth_goal))
         print("Nivel " + str(depth_goal))
         # at the start of each iteration the visited list is cleared
         visited.clear()
         result_given_level = IDSRecursive(matrix, depth_goal)
         if result_given_level is not None:
-            #print("Actual node: " + str(matrix))
             print("puzzle solved")
             found = True
         depth_goal = depth_goal + 1
@@ -406,30 +338,18 @@ def IDSRecursive(matrix, level):
     if isSolved(matrix):       
             print("La solucion es: " + str(matrix))         
             return matrix
-    # TODO: change to elif ?
     if level == 0:
         # base case of the recursion, just return None because answer not found
         return None
     else:
         sons = generate_sons(matrix)
         for son in sons:
-            # print("Son : " + str(son) + " de matriz: " + str(matrix))
             if son not in visited:
-                # print("Visitado por primera vez")
                 visited.append(son)
-                # print("Manda nueva matriz: " + str(son) + " con nivel: " + str(level-1))  
                 answer = IDSRecursive(son, level-1)
                 if answer is not None:
-                    # print("siuuuuuu")
                     return answer
-                #print("Retorno None")
     return None
-                
-        # TODO: change to eelse ?
-        # calculate all posible sons of the current matrix
-        # TODO: use function specially to create sons ?
-        # TODO: hwo about the visited node ? need to don't cycle ad vita eternam
-        # for each available son call the IDSRecursive function
 
 def IDS_star(matrix):
     threshold = calculate_heuristic_value(matrix)
@@ -463,7 +383,6 @@ def IDS_star_recursive(matrix, threshold, movement_cost):
 
     # the calculated threshold is the minimum cost of the sons
     return None, minimum_cost
-
 
 def isTableSolvable(matrix):
     # Flatten the matrix and include 0 if it's present
