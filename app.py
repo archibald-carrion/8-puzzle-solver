@@ -1,5 +1,5 @@
 import os
-import eight_puzzle_solver
+import eightPuzzleSolver
 import time
 import psutil
 import matrices
@@ -13,50 +13,50 @@ class App():
 
         # previous format was better because it shows the matrix in a more readable way
         # but it stops being viable when the user has to choose a matrix among 20
-        matrix_id = int(input("Choose matrix to solve from 0 to 19: "))
-        selected_matrix = matrices.matrices_maping.get(matrix_id)
+        matrixId = int(input("Choose matrix to solve from 0 to 19: "))
+        selected_matrix = matrices.matrices_maping.get(matrixId)
 
-        algorithm_id = int(input("Choose algorithm to solve the puzzle: \n0. Ancho primero\n1. Greedy\n2. IDS\n3. IDS star\n"))
+        algorithmId = int(input("Choose algorithm to solve the puzzle: \n0. Ancho primero\n1. Greedy\n2. IDS\n3. IDS star\n"))
 
         print("solving the puzzle: ")
         print(selected_matrix)
         
-        if eight_puzzle_solver.isTableSolvable(selected_matrix) == False:
+        if eightPuzzleSolver.isTableSolvable(selected_matrix) == False:
             print("The puzzle is not solvable")
         else:
             print("The puzzle is solvable")
 
             # Breadth First
-            if algorithm_id == 0:
+            if algorithmId == 0:
                 print("Executing breadthFirst")
-                start_time = time.time()
-                eight_puzzle_solver.breadthFirst(selected_matrix)
-                end_time = time.time()
-                print("Time elapsed in seconds: ", end_time - start_time)
+                startTime = time.time()
+                eightPuzzleSolver.breadthFirst(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
             
             # Greedy
-            elif algorithm_id == 1:
+            elif algorithmId == 1:
                 print("Executing greedy")
-                start_time = time.time()
-                eight_puzzle_solver.greedy(selected_matrix)
-                end_time = time.time()
-                print("Time elapsed in seconds: ", end_time - start_time)
+                startTime = time.time()
+                eightPuzzleSolver.greedy(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
             
             # IDS
-            elif algorithm_id == 2:
+            elif algorithmId == 2:
                 print("Executing IDS")
-                start_time = time.time()
-                eight_puzzle_solver.IDS(selected_matrix)
-                end_time = time.time()
-                print("Time elapsed in seconds: ", end_time - start_time)
+                startTime = time.time()
+                eightPuzzleSolver.IDS(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
             
             # IDS star
-            elif algorithm_id == 3:
+            elif algorithmId == 3:
                 print("Executing IDS star")
-                start_time = time.time()
-                eight_puzzle_solver.idsStar(selected_matrix)
-                end_time = time.time()
-                print("Time elapsed in seconds: ", end_time - start_time)
+                startTime = time.time()
+                eightPuzzleSolver.idsStar(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
             
             # Invalid algorithm id
             else:
@@ -65,5 +65,5 @@ class App():
 
             # Get memory usage
             process = psutil.Process()
-            memory_usage = process.memory_info().rss  # in bytes
-            print("Memory Usage:", memory_usage, "bytes")
+            memoryUsage = process.memoryInfo().rss  # in bytes
+            print("Memory Usage:", memoryUsage, "bytes")
