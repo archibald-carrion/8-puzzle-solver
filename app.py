@@ -65,5 +65,5 @@ class App():
 
             # Get memory usage
             process = psutil.Process()
-            memoryUsage = process.memoryInfo().rss  # in bytes
+            memoryUsage = process.memory_info().rss  # in bytes
             print("Memory Usage:", memoryUsage, "bytes")
