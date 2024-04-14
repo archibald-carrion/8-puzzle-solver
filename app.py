@@ -1,50 +1,7 @@
 import os
 import IA   # TODO: change name of the file to something more significant
 import time
-
-matrix_solvable_1 = [[1, 2, 3],
-                     [4, 8, 7],
-                     [6, 0, 5]]
-                     
-matrix_solvable_2 = [[1, 2, 3],
-                     [4, 6, 8],
-                     [7, 5, 0]]
-
-matrix_solvable_3 = [[7, 3, 6],
-                     [5, 1, 2],
-                     [8, 0, 4]]
-
-matrix_unsolvable_1 = [[1, 7, 3],
-                       [0, 6, 2],
-                       [8, 4, 5]]
-
-matrix_unsolvable_2 = [[1, 2, 3],
-                       [4, 5, 6],
-                       [8, 7, 0]]
-
-
-# # Function to check if the matrix is solvable
-# # a matrix is solvable if the number of inversions is even
-# # an inversion is when a number is greater than another number that is after it
-# # 0 is not counted as a number in this case, only the numbers from 1 to 8
-# # TODO: check if this is correct
-# def isTableSolvable(matrix):
-#     #Count the number of inversions
-#     inversions = 0
-#     #Create a list with the matrix
-#     list_matrix = []
-#     for i in range(3):
-#         for j in range(3):
-#             list_matrix.append(matrix[i][j])
-#     #Count the number of inversions
-#     for i in range(9):
-#         for j in range(i+1,9):
-#             if list_matrix[i] > list_matrix[j] and list_matrix[i] != 0 and list_matrix[j] != 0:
-#                 inversions = inversions + 1
-#     #If the number of inversions is odd, the matrix is not solvable
-#     if inversions % 2 != 0:
-#         return False
-#     return True
+import matrices
   
 def isTableSolvable(matrix):
     # Flatten the matrix and include 0 if it's present
@@ -74,52 +31,60 @@ class App():
         print('App is running')
 
 
-        print("Which matrix, do you want to run:\n")
-        print("1.matrix_solvable_1")
-        print(str(matrix_solvable_1))
+        # previous format was better because it shows the matrix in a more readable way
+        # but it stops being viable when the user has to choose a matrix among 20
+        # print("Choose matrix to solve from 0 to 19:\n")
+        matrix_id = int(input("Choose matrix to solve from 0 to 19: "))
+        selected_matrix = matrices.matrices_maping.get(matrix_id)
 
-        print("2.matrix_solvable_2")
-        print(str(matrix_solvable_2))
+        # selected_matrix
 
-        print("3.matrix_solvable_3")
-        print(str(matrix_solvable_3))
+        # add input to now wich algorithm to use
 
-        print("4.matrix_unsolvable_1")
-        print(str(matrix_unsolvable_1))
+        # print("1.matrix_solvable_1")
+        # print(str(matrix.matrix_solvable_1))
 
-        print("5.matrix_unsolvable_2")
-        print(str(matrix_unsolvable_2))
+        # print("2.matrix_solvable_2")
+        # print(str(matrix_solvable_2))
 
-        print("Escoja una matrriz: ")
+        # print("3.matrix_solvable_3")
+        # print(str(matrix_solvable_3))
 
-        id = int(input())
+        # print("4.matrix_unsolvable_1")
+        # print(str(matrix_unsolvable_1))
 
-        if id == 1:
-            matrix_solvable = matrix_solvable_1
+        # print("5.matrix_unsolvable_2")
+        # print(str(matrix_unsolvable_2))
 
-        if id == 2:
-            matrix_solvable = matrix_solvable_2
+        # print("Escoja una matriz: ")
 
-        if id == 3:
-            matrix_solvable = matrix_solvable_3
 
-        if id == 4:
-            matrix_solvable = matrix_unsolvable_1
+        # if id == 1:
+        #     matrix_solvable = matrix_solvable_1
 
-        if id == 5:
-            matrix_solvable = matrix_unsolvable_2
+        # if id == 2:
+        #     matrix_solvable = matrix_solvable_2
+
+        # if id == 3:
+        #     matrix_solvable = matrix_solvable_3
+
+        # if id == 4:
+        #     matrix_solvable = matrix_unsolvable_1
+
+        # if id == 5:
+        #     matrix_solvable = matrix_unsolvable_2
 
         print("solving the puzzle: ")
-        print(matrix_solvable)
+        print(selected_matrix)
         
-        if isTableSolvable(matrix_solvable) == False:
+        if isTableSolvable(selected_matrix) == False:
             print("The puzzle is not solvable")
         else:
             print("The puzzle is solvable")
             #Ancho Prime
             inicio_tiempo = time.time()
 
-            IA.breadthFirst(matrix_solvable)
+            IA.breadthFirst(selected_matrix)
 
             fin_tiempo = time.time()
             
@@ -129,7 +94,7 @@ class App():
 
             #Greedy
             inicio_tiempo = time.time()
-            IA.greedy(matrix_solvable)
+            IA.greedy(selected_matrix)
 
             fin_tiempo = time.time()
             
@@ -140,7 +105,7 @@ class App():
             #IDS
             inicio_tiempo = time.time()
 
-            IA.IDS(matrix_solvable)
+            IA.IDS(selected_matrix)
 
             fin_tiempo = time.time()
             
@@ -151,7 +116,7 @@ class App():
             #IDS star
 
             inicio_tiempo = time.time()
-            IA.IDS_star(matrix_solvable)
+            IA.IDS_star(selected_matrix)
 
             fin_tiempo = time.time()
             
