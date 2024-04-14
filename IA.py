@@ -15,6 +15,8 @@ class Movement:
     self.pastMove = pastMove
     self.level = level
 
+
+
 # find the zero in the matrix
 def findZero(board):
     matrix = board
@@ -137,7 +139,7 @@ def breadthFirst(matrix):
     counter = 0
     #While queue has contents
     while queue and not found:
-        #print("queue: " + str(queue))
+        # print("not found\n")
         node = queue.popleft()
         counter = counter + 1
         if node not in visited:
@@ -356,28 +358,7 @@ def greedy(matrix):
                     newNode = goLeft(node, x_axis, y_axis)
                     queue.append(newNode)
 
-# Function to check if the matrix is solvable
-# a matrix is solvable if the number of inversions is even
-# an inversion is when a number is greater than another number that is after it
-# 0 is not counted as a number in this case, only the numbers from 1 to 8
-# TODO: check if this is correct
-def isTableSolvable(matrix):
-    #Count the number of inversions
-    inversions = 0
-    #Create a list with the matrix
-    list_matrix = []
-    for i in range(3):
-        for j in range(3):
-            list_matrix.append(matrix[i][j])
-    #Count the number of inversions
-    for i in range(9):
-        for j in range(i+1,9):
-            if list_matrix[i] > list_matrix[j] and list_matrix[i] != 0 and list_matrix[j] != 0:
-                inversions = inversions + 1
-    #If the number of inversions is odd, the matrix is not solvable
-    if inversions % 2 != 0:
-        return False
-    return True
+
 
 def generate_sons(matrix):
     matrixToVisit = []
