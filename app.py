@@ -54,7 +54,7 @@ class App():
             elif algorithm_id == 3:
                 print("Executing IDS star")
                 start_time = time.time()
-                eight_puzzle_solver.IDS_star(selected_matrix)
+                eight_puzzle_solver.idsStar(selected_matrix)
                 end_time = time.time()
                 print("Time elapsed in seconds: ", end_time - start_time)
             

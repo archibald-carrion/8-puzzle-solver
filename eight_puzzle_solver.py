@@ -5,87 +5,86 @@ from collections import deque
 visited = []
 
 # find the zero in the matrix
-def findZero(board):
-    matrix = board
-    x_axis, y_axis = 0, 0
+def findZero(matrix):
+    xAxis, yAxis = 0, 0
     found = False
-    while not(found) and y_axis < 3:
-        x_axis = 0
-        while not(found) and x_axis < 3:
-            if matrix[y_axis][x_axis] == 0:
+    while not(found) and yAxis < 3:
+        xAxis = 0
+        while not(found) and xAxis < 3:
+            if matrix[yAxis][xAxis] == 0:
                 found = True
             else:
-                x_axis = x_axis + 1
+                xAxis = xAxis + 1
         if not(found):
-            y_axis = y_axis + 1
+            yAxis = yAxis + 1
         
-    return x_axis, y_axis
+    return xAxis, yAxis
 
 # goUp function moves the zero up
 # returns the new matrix
-def goUp(board,x_axis,y_axis):
-    # Create a new matrix
-    matrix = [[0 for i in range(3)] for j in range(3)]
+def goUp(matrix,xAxis,yAxis):
+    # Create a new newMatrix
+    newMatrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
-            matrix[i][j] = board[i][j]
+            newMatrix[i][j] = matrix[i][j]
     
-    temp_value = matrix[y_axis-1][x_axis]
-    matrix[y_axis-1][x_axis] = 0
-    matrix[y_axis][x_axis] = temp_value
-    return matrix
+    tempValue = newMatrix[yAxis-1][xAxis]
+    newMatrix[yAxis-1][xAxis] = 0
+    newMatrix[yAxis][xAxis] = tempValue
+    return newMatrix
 
 # goRight function moves the zero right
 # returns the new matrix
-def goRight(board,x_axis,y_axis):
+def goRight(matrix,xAxis,yAxis):
     # Create a new matrix
-    matrix = [[0 for i in range(3)] for j in range(3)]
+    newMatrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
-            matrix[i][j] = board[i][j]
+            newMatrix[i][j] = matrix[i][j]
 
-    temp_value = matrix[y_axis][x_axis+1]
-    matrix[y_axis][x_axis+1] = 0
-    matrix[y_axis][x_axis] = temp_value
-    return matrix
+    tempValue = newMatrix[yAxis][xAxis+1]
+    newMatrix[yAxis][xAxis+1] = 0
+    newMatrix[yAxis][xAxis] = tempValue
+    return newMatrix
 
 # goDown function moves the zero down
 # returns the new matrix
-def goDown(board,x_axis,y_axis):
+def goDown(matrix,xAxis,yAxis):
     # Create a new matrix
-    matrix = [[0 for i in range(3)] for j in range(3)]
+    newMatrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
-            matrix[i][j] = board[i][j]
+            newMatrix[i][j] = matrix[i][j]
 
-    temp_value = matrix[y_axis+1][x_axis]
-    matrix[y_axis+1][x_axis] = 0
-    matrix[y_axis][x_axis] = temp_value
-    return matrix
+    tempValue = newMatrix[yAxis+1][xAxis]
+    newMatrix[yAxis+1][xAxis] = 0
+    newMatrix[yAxis][xAxis] = tempValue
+    return newMatrix
 
 # goLeft function moves the zero left
 # returns the new matrix
-def goLeft(board,x_axis,y_axis):
+def goLeft(matrix,xAxis,yAxis):
     # Create a new matrix
-    matrix = [[0 for i in range(3)] for j in range(3)]
+    newMatrix = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
-            matrix[i][j] = board[i][j]
+            newMatrix[i][j] = matrix[i][j]
 
-    temp_value = matrix[y_axis][x_axis-1]
-    matrix[y_axis][x_axis-1] = 0
-    matrix[y_axis][x_axis] = temp_value
-    return matrix
+    tempValue = newMatrix[yAxis][xAxis-1]
+    newMatrix[yAxis][xAxis-1] = 0
+    newMatrix[yAxis][xAxis] = tempValue
+    return newMatrix
 
 # allMoves function returns a tuple with 4 boolean values, each value is True
 # if the zero can move in that direction
 def allMoves(board):
-    x_axis, y_axis = findZero(board)
-    can_go_up = (y_axis > 0)
-    can_go_right = (x_axis < 2)
-    can_go_down = (y_axis < 2)
-    can_go_left = (x_axis > 0)
-    return can_go_up, can_go_right, can_go_down , can_go_left
+    xAxis, yAxis = findZero(board)
+    canGoUp = (yAxis > 0)
+    canGoRight = (xAxis < 2)
+    canGoDown = (yAxis < 2)
+    canGoLeft = (xAxis > 0)
+    return canGoUp, canGoRight, canGoDown , canGoLeft
 
 # isSolved function checks if the matrix is the solved matrix, the goal matrix
 # is harcoded in the function as [[1, 2, 3],[4, 5, 6],[7, 8, 0]]
@@ -111,15 +110,15 @@ def isSolved(board):
 #             return True
 #     return False
 
-# add_to_visited function adds a matrix to the visited list
-def add_to_visited(matrix, visited):
+# addToVisited function adds a matrix to the visited list
+def addToVisited(matrix, visited):
     # create a matrix with 3 rows and 3 columns
-    matrix_copy = [[0 for i in range(3)] for j in range(3)]
+    matrixCopy = [[0 for i in range(3)] for j in range(3)]
     for i in range(3):
         for j in range(3):
-            matrix_copy[i][j] = matrix[i][j]
+            matrixCopy[i][j] = matrix[i][j]
             
-    visited.append(matrix_copy)
+    visited.append(matrixCopy)
 
 # breadthFirst function uses the breadth first algorithm to solve the puzzle
 def breadthFirst(matrix):
@@ -146,66 +145,66 @@ def breadthFirst(matrix):
                 queue.clear() # empty the queue
                 found = True
 
-            add_to_visited(node, visited)
+            addToVisited(node, visited)
 
             if not found:
                 # check all 4 possible moves and add them to the queue if they
                 # have not been visited and are possible
                 up,right,down,left = allMoves(node)
-                x_axis, y_axis = findZero(node)
+                xAxis, yAxis = findZero(node)
                 
                 if up:
-                    newNode = goUp(node, x_axis, y_axis)
+                    newNode = goUp(node, xAxis, yAxis)
                     if newNode not in visited:
                         queue.append(newNode)
                     newNode = None
 
                 if right:
-                    newNode = goRight(node, x_axis, y_axis)
+                    newNode = goRight(node, xAxis, yAxis)
                     if newNode not in visited:
                         queue.append(newNode)
                     newNode = None
 
                 if down:
-                    newNode = goDown(node, x_axis, y_axis)
+                    newNode = goDown(node, xAxis, yAxis)
                     if newNode not in visited:
                         queue.append(newNode)
                     newNode = None
 
                 if left:
-                    newNode = goLeft(node, x_axis, y_axis)
+                    newNode = goLeft(node, xAxis, yAxis)
                     if newNode not in visited:
                         queue.append(newNode)
                     newNode = None
 
-# calculate_heuristic_value function calculates the heuristic value of a matrix
+# calculateHeuristicValue function calculates the heuristic value of a matrix
 # the heuristic value is the sum of the manhattan distances of each number to
 # its correct position in an hipothetical "empty" matrix
-def calculate_heuristic_value(matrix):
+def calculateHeuristicValue(matrix):
     heuristic = 0
     for i in range(3):
         for j in range(3):
             if matrix[i][j] != 0:
-                x_axis = (matrix[i][j] - 1) % 3
-                y_axis = (matrix[i][j] - 1) // 3
-                # abs(x_axis-j) + abs(y_axis-i) is the n_th manhattan distance
-                heuristic = heuristic + abs(x_axis - j) + abs(y_axis - i)
+                xAxis = (matrix[i][j] - 1) % 3
+                yAxis = (matrix[i][j] - 1) // 3
+                # abs(xAxis-j) + abs(yAxis-i) is the n_th manhattan distance
+                heuristic = heuristic + abs(xAxis - j) + abs(yAxis - i)
     return heuristic
 
 # matrixRating is not used in the final version of the app, because it
-# resolves the same problem as the calculate_heuristic_value function, but we
+# resolves the same problem as the calculateHeuristicValue function, but we
 # decided to keep it because it uses a different but interesting approach
 def matrixRating(matrix):
     rating = 0
     x = 0
     y = 0
-    coordinates_solved = [(0,0),(1,0),(2,0),(0,1),(1,1),(2,1),(0,2),(1,2),(2,2)] 
+    coordinatesSolved = [(0,0),(1,0),(2,0),(0,1),(1,1),(2,1),(0,2),(1,2),(2,2)]
     for i in range(3):
         for j in range(3):
             value = matrix[j][i]
             # print(value)
-            x = coordinates_solved[value-1][0] + j
-            y = coordinates_solved[value-1][1] + i
+            x = coordinatesSolved[value-1][0] + j
+            y = coordinatesSolved[value-1][1] + i
             rating = rating + x + y
     
     return rating
@@ -232,91 +231,91 @@ def greedy(matrix):
                 queue.clear() # empty the queue
                 found = True
 
-            add_to_visited(node, visited)
+            addToVisited(node, visited)
 
             # all 4 possible moves will be checked and only the one with the lowest heuristic value will be added to the queue
             if not found:
                 up,right,down,left = allMoves(node)
-                x_axis, y_axis = findZero(node)
+                xAxis, yAxis = findZero(node)
                 
                 # we use a vector of 4 elements to store the heuristic values of the 4 possible moves
                 # the heuristic value of a move is -1 if the move is not possible
-                heuristic_values = [-1, -1, -1, -1]
+                heuristicValues = [-1, -1, -1, -1]
 
                 if up:
-                    newNode = goUp(node, x_axis, y_axis)
+                    newNode = goUp(node, xAxis, yAxis)
                     if newNode not in visited:
-                        heuristic_values[0] = calculate_heuristic_value(newNode)
+                        heuristicValues[0] = calculateHeuristicValue(newNode)
                     newNode = None
 
                 if right:
-                    newNode = goRight(node, x_axis, y_axis)
+                    newNode = goRight(node, xAxis, yAxis)
                     if newNode not in visited:
-                        heuristic_values[1] = calculate_heuristic_value(newNode)
+                        heuristicValues[1] = calculateHeuristicValue(newNode)
                     newNode = None
 
                 if down:
-                    newNode = goDown(node, x_axis, y_axis)
+                    newNode = goDown(node, xAxis, yAxis)
                     if newNode not in visited:
-                        heuristic_values[2] = calculate_heuristic_value(newNode)
+                        heuristicValues[2] = calculateHeuristicValue(newNode)
                     newNode = None
 
                 if left:
-                    newNode = goLeft(node, x_axis, y_axis)
+                    newNode = goLeft(node, xAxis, yAxis)
                     if newNode not in visited:
-                        heuristic_values[3] = calculate_heuristic_value(newNode)
+                        heuristicValues[3] = calculateHeuristicValue(newNode)
                     newNode = None
 
                 # find the move with the lowest heuristic value
-                min_heuristic = 0
+                minHeuristic = 0
 
                 # find the first move that is possible
                 for i in range(4):
-                    if heuristic_values[i] != -1:
-                        min_heuristic = i
+                    if heuristicValues[i] != -1:
+                        minHeuristic = i
                         break
 
                 # find the move with the lowest heuristic value
                 for i in range(4):
-                    if heuristic_values[i] != -1:
-                        if heuristic_values[i] < heuristic_values[min_heuristic]:
-                            min_heuristic = i
+                    if heuristicValues[i] != -1:
+                        if heuristicValues[i] < heuristicValues[minHeuristic]:
+                            minHeuristic = i
                 
                 # add the move with the lowest heuristic value to the queue
                 # there is no need to check if the move is possible because it has already been checked
-                if min_heuristic == 0:
-                    newNode = goUp(node, x_axis, y_axis)
+                if minHeuristic == 0:
+                    newNode = goUp(node, xAxis, yAxis)
                     queue.append(newNode)
-                if min_heuristic == 1:
-                    newNode = goRight(node, x_axis, y_axis)
+                if minHeuristic == 1:
+                    newNode = goRight(node, xAxis, yAxis)
                     queue.append(newNode)
-                if min_heuristic == 2:
-                    newNode = goDown(node, x_axis, y_axis)
+                if minHeuristic == 2:
+                    newNode = goDown(node, xAxis, yAxis)
                     queue.append(newNode)
-                if min_heuristic == 3:
-                    newNode = goLeft(node, x_axis, y_axis)
+                if minHeuristic == 3:
+                    newNode = goLeft(node, xAxis, yAxis)
                     queue.append(newNode)
 
-# generate_sons function generates all the possible sons of a given matrix
-def generate_sons(matrix):
+# generateSons function generates all the possible sons of a given matrix
+def generateSons(matrix):
     matrixToVisit = []
 
     up,right,down,left = allMoves(matrix)
-    x_axis, y_axis = findZero(matrix)
+    xAxis, yAxis = findZero(matrix)
 
     if up:
-        newMatrix = goUp(matrix, x_axis, y_axis)
+        newMatrix = goUp(matrix, xAxis, yAxis)
         matrixToVisit.append(newMatrix)
 
     if right:
-        newMatrix = goRight(matrix, x_axis, y_axis)
+        newMatrix = goRight(matrix, xAxis, yAxis)
         matrixToVisit.append(newMatrix)
 
     if down:
-        newMatrix = goDown(matrix, x_axis, y_axis)
+        newMatrix = goDown(matrix, xAxis, yAxis)
         matrixToVisit.append(newMatrix)
     if left:
-        newMatrix = goLeft(matrix, x_axis, y_axis)
+        newMatrix = goLeft(matrix, xAxis, yAxis)
         matrixToVisit.append(newMatrix)
 
     return matrixToVisit
@@ -324,17 +323,17 @@ def generate_sons(matrix):
 # IDS function uses the iterative deepening search algorithm to solve the
 # 8 puzzle
 def IDS(matrix):
-    depth_goal = 0
+    depthGoal = 0
     found = False
     while not found:
-        # print("Nivel " + str(depth_goal))
+        # print("Nivel " + str(depthGoal))
         # at the start of each iteration the visited list is cleared
         visited.clear()
-        result_given_level = IDSRecursive(matrix, depth_goal)
-        if result_given_level is not None:
+        resultGivenLevel = IDSRecursive(matrix, depthGoal)
+        if resultGivenLevel is not None:
             # print("puzzle solved")
             found = True
-        depth_goal = depth_goal + 1
+        depthGoal = depthGoal + 1
 
 # IDSRecursive function is a recursive function that is used in the IDS algorithm
 def IDSRecursive(matrix, level):
@@ -344,7 +343,7 @@ def IDSRecursive(matrix, level):
         # base case of the recursion, just return None because answer not found
         return None
     else:
-        sons = generate_sons(matrix)
+        sons = generateSons(matrix)
         # for each son of the matrix, check if it has already been visited
         # if not, add it to the visited list and call the recursive function
         for son in sons:
@@ -357,62 +356,62 @@ def IDSRecursive(matrix, level):
                     return answer
     return None
 
-# IDS_star function uses the IDS algorithm in addition to the use of a
+# idsStar function uses the IDS algorithm in addition to the use of a
 # heuristic to solve the 8 puzzle
-def IDS_star(matrix):
-    threshold = calculate_heuristic_value(matrix)
+def idsStar(matrix):
+    threshold = calculateHeuristicValue(matrix)
     found = False
 
     while not found:
-        movement_cost = 0
-        result_given_level, new_threshold = IDS_star_recursive(matrix, threshold, movement_cost)
-        if result_given_level is not None:
+        movementCost = 0
+        resultGivenLevel, newThreshold = idsStarRecursive(matrix, threshold, movementCost)
+        if resultGivenLevel is not None:
             # print("puzzle solved")
-            # print("Solution is: " + str(result_given_level))
+            # print("Solution is: " + str(resultGivenLevel))
             found = True
-        threshold = new_threshold # update the threshold with the new threshold
+        threshold = newThreshold # update the threshold with the new threshold
 
 # recursive function for the a_star algorithm
-def IDS_star_recursive(matrix, threshold, movement_cost):
-    estimated_cost = calculate_heuristic_value(matrix) + movement_cost # hope that works
-    if estimated_cost > threshold:
-        return None, estimated_cost
+def idsStarRecursive(matrix, threshold, movementCost):
+    estimatedCost = calculateHeuristicValue(matrix) + movementCost # hope that works
+    if estimatedCost > threshold:
+        return None, estimatedCost
     if isSolved(matrix):
         return matrix, threshold
 
-    sons = generate_sons(matrix)
-    minimum_cost = 1000000000 # a very big number
+    sons = generateSons(matrix)
+    minimumCost = 1000000000 # a very big number
     for son in sons:
-        result_given_level, new_threshold = IDS_star_recursive(son, threshold, movement_cost+1)
-        # only case in which the result_given_level is not None is when the
+        resultGivenLevel, newThreshold = idsStarRecursive(son, threshold, movementCost+1)
+        # only case in which the resultGivenLevel is not None is when the
         # puzzle has been solved
-        if result_given_level is not None:
-            return result_given_level, threshold
-        if new_threshold < minimum_cost:
-            minimum_cost = new_threshold
+        if resultGivenLevel is not None:
+            return resultGivenLevel, threshold
+        if newThreshold < minimumCost:
+            minimumCost = newThreshold
 
     # the calculated threshold is the minimum cost of the sons
-    return None, minimum_cost
+    return None, minimumCost
 
 # isTableSolvable function checks if a matrix is solvable
 # the function uses the inversion count, if the inversion count is even then
 # the matrix is solvable
 def isTableSolvable(matrix):
     # Flatten the matrix and include 0 if it's present
-    flat_matrix = [elem for row in matrix for elem in row]
-    if 0 not in flat_matrix:
-        flat_matrix.append(0)
+    flatMatrix = [elem for row in matrix for elem in row]
+    if 0 not in flatMatrix:
+        flatMatrix.append(0)
 
     # Count inversions
     inversions = 0
-    for i in range(len(flat_matrix)):
-        for j in range(i + 1, len(flat_matrix)):
-            if flat_matrix[i] > flat_matrix[j] and flat_matrix[j] != 0:
+    for i in range(len(flatMatrix)):
+        for j in range(i + 1, len(flatMatrix)):
+            if flatMatrix[i] > flatMatrix[j] and flatMatrix[j] != 0:
                 inversions += 1
 
     # Check if the puzzle is solvable based on inversion count and blank position
-    blank_row_from_bottom = (len(matrix) - 1) - (flat_matrix.index(0) // len(matrix[0]))
+    blankRowFromBottom = (len(matrix) - 1) - (flatMatrix.index(0) // len(matrix[0]))
     if len(matrix[0]) % 2 == 0:
-        return (inversions % 2 == 0) == (blank_row_from_bottom % 2 == 1)
+        return (inversions % 2 == 0) == (blankRowFromBottom % 2 == 1)
     else:
         return inversions % 2 == 0
