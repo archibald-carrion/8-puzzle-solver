@@ -25,9 +25,10 @@ class App():
         print(matrix_solvable)
 
         inicio_tiempo = time.time()
-        IA.breadthFirst(matrix_solvable)
+        # IA.breadthFirst(matrix_solvable)
         # IA.greedy(matrix_solvable)
         # IA.IDS(matrix_solvable)
+        IA.IDS_star(matrix_solvable)
 
         fin_tiempo = time.time()
 

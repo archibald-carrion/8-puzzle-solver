@@ -449,3 +449,38 @@ def IDSRecursive(matrix, level):
         # TODO: use function specially to create sons ?
         # TODO: hwo about the visited node ? need to don't cycle ad vita eternam
         # for each available son call the IDSRecursive function
+
+def IDS_star(matrix):
+    threshold = calculate_heuristic_value(matrix)
+    found = False
+
+    while not found:
+        movement_cost = 0
+        result_given_level, new_threshold = IDS_star_recursive(matrix, threshold, movement_cost)
+        if result_given_level is not None:
+            print("puzzle solved")
+            print("Solution is: " + str(result_given_level))
+            found = True
+        threshold = new_threshold # update the threshold with the new threshold
+
+# recursive function for the a_star algorithm
+def IDS_star_recursive(matrix, threshold, movement_cost):
+    estimated_cost = calculate_heuristic_value(matrix) + movement_cost # hope that works
+    if estimated_cost > threshold:
+        return None, estimated_cost
+    if isSolved(matrix):
+        return matrix, threshold
+
+    sons = generate_sons(matrix)
+    minimum_cost = 1000000000 # a very big number
+    for son in sons:
+        result_given_level, new_threshold = IDS_star_recursive(son, threshold, movement_cost+1)
+        if result_given_level is not None:
+            return result_given_level, threshold
+        if new_threshold < minimum_cost:
+            minimum_cost = new_threshold
+
+    # the calculated threshold is the minimum cost of the sons
+    return None, minimum_cost
+
+
