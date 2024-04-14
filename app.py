@@ -1,5 +1,5 @@
 import os
-import IA   # TODO: change name of the file to something more significant
+import eight_puzzle_solver   # TODO: change name of the file to something more significant
 import time
 import matrices
           
@@ -59,7 +59,7 @@ class App():
         print("solving the puzzle: ")
         print(selected_matrix)
         
-        if IA.isTableSolvable(selected_matrix) == False:
+        if eight_puzzle_solver.isTableSolvable(selected_matrix) == False:
             print("The puzzle is not solvable")
         else:
             print("The puzzle is solvable")
@@ -68,7 +68,7 @@ class App():
             if algorithm_id == 0:
                 print("Executing breadthFirst")
                 start_time = time.time()
-                IA.breadthFirst(selected_matrix)
+                eight_puzzle_solver.breadthFirst(selected_matrix)
                 end_time = time.time()
                 print("Time elapsed in seconds: ", end_time - start_time)
             
@@ -76,7 +76,7 @@ class App():
             elif algorithm_id == 1:
                 print("Executing greedy")
                 start_time = time.time()
-                IA.greedy(selected_matrix)
+                eight_puzzle_solver.greedy(selected_matrix)
                 end_time = time.time()
                 print("Time elapsed in seconds: ", end_time - start_time)
             
@@ -84,7 +84,7 @@ class App():
             elif algorithm_id == 2:
                 print("Executing IDS")
                 start_time = time.time()
-                IA.IDS(selected_matrix)
+                eight_puzzle_solver.IDS(selected_matrix)
                 end_time = time.time()
                 print("Time elapsed in seconds: ", end_time - start_time)
             
@@ -92,7 +92,7 @@ class App():
             elif algorithm_id == 3:
                 print("Executing IDS star")
                 start_time = time.time()
-                IA.IDS_star(selected_matrix)
+                eight_puzzle_solver.IDS_star(selected_matrix)
                 end_time = time.time()
                 print("Time elapsed in seconds: ", end_time - start_time)
             
