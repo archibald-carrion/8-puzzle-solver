@@ -92,7 +92,7 @@
 import random
 
 def generar_matriz_aleatoria():
-    numeros_disponibles = list(range(10))
+    numeros_disponibles = list(range(9))
     matriz = [[None, None, None], [None, None, None], [None, None, None]]
     
     for i in range(3):
@@ -102,13 +102,36 @@ def generar_matriz_aleatoria():
             numeros_disponibles.remove(numero) 
     
     return matriz
-    # return [[1, 3, 8],[7, 2, 4],[5, 6, 0]]
 
-# matricesMaping = {}
-# for i in range(0, 20):
-#     matriz_aleatoria = generar_matriz_aleatoria()
-#     matricesMaping[i] = matriz_aleatoria
+def guardar_matrices_en_txt(nombre_archivo):
+    with open(nombre_archivo, 'w') as archivo:
+        for _ in range(20):
+            matriz = generar_matriz_aleatoria()
+            archivo.write(','.join(map(str, matriz[0])) + '\n')
+            archivo.write(','.join(map(str, matriz[1])) + '\n')
+            archivo.write(','.join(map(str, matriz[2])) + '\n')
+            archivo.write('\n')
 
-def imprimir_matriz(matriz):
-    for fila in matriz:
-        print('[' + ' '.join(map(str, fila)) + ']')
+def leer_matrices_desde_txt(nombre_archivo):
+    matrices_dict = {}
+    with open(nombre_archivo, 'r') as archivo:
+        matrices = archivo.read().split('\n\n')
+        for idx, matriz_str in enumerate(matrices, 0):
+            if matriz_str.strip():
+                matriz = [[int(num) for num in fila.split(',')] for fila in matriz_str.split('\n')]
+                matrices_dict[idx] = matriz
+    return matrices_dict
+
+def imprimir_diccionario_matrices(diccionario):
+    for clave, matriz in diccionario.items():
+        print(f'Matriz {clave}:')
+        for fila in zip(*matriz):
+            print('\t'.join(map(str, fila)))
+        print()
+
+def seleccionar_matriz(diccionario, indice):
+    if indice in diccionario:
+        matriz_seleccionada = diccionario[indice]
+        return matriz_seleccionada
+    else:
+        print(f'No se encontró una matriz con el índice {indice} en el diccionario.')
