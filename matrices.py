@@ -103,7 +103,11 @@ def generar_matriz_aleatoria():
     
     return matriz
 
-matricesMaping = {}
-for i in range(0, 20):
-    matriz_aleatoria = generar_matriz_aleatoria()
-    matricesMaping[i] = matriz_aleatoria
+# matricesMaping = {}
+# for i in range(0, 20):
+#     matriz_aleatoria = generar_matriz_aleatoria()
+#     matricesMaping[i] = matriz_aleatoria
+
+def imprimir_matriz(matriz):
+    for fila in matriz:
+        print('[' + ' '.join(map(str, fila)) + ']')

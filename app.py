@@ -13,13 +13,15 @@ class App():
 
         # previous format was better because it shows the matrix in a more readable way
         # but it stops being viable when the user has to choose a matrix among 20
-        matrixId = int(input("Choose matrix to solve from 0 to 19: "))
-        selected_matrix = matrices.matricesMaping.get(matrixId)
+        # matrixId = int(input("Choose matrix to solve from 0 to 19: "))
+        # selected_matrix = matrices.matricesMaping.get(matrixId)
 
+        selected_matrix = matrices.generar_matriz_aleatoria()
+        print("solving the puzzle: ")
+        matrices.imprimir_matriz(selected_matrix)
+        
         algorithmId = int(input("Choose algorithm to solve the puzzle: \n0. Ancho primero\n1. Greedy\n2. IDS\n3. IDS star\n"))
 
-        print("solving the puzzle: ")
-        print(selected_matrix)
         
         # if eightPuzzleSolver.isTableSolvable(selected_matrix) == False:
         #     print("The puzzle is not solvable")
