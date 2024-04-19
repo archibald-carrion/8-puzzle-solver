@@ -102,6 +102,7 @@ def generar_matriz_aleatoria():
             numeros_disponibles.remove(numero) 
     
     return matriz
+    # return [[1, 3, 8],[7, 2, 4],[5, 6, 0]]
 
 # matricesMaping = {}
 # for i in range(0, 20):

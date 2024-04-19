@@ -20,52 +20,75 @@ class App():
         print("solving the puzzle: ")
         matrices.imprimir_matriz(selected_matrix)
         
-        algorithmId = int(input("Choose algorithm to solve the puzzle: \n0. Ancho primero\n1. Greedy\n2. IDS\n3. IDS star\n"))
 
         
-        # if eightPuzzleSolver.isTableSolvable(selected_matrix) == False:
-        #     print("The puzzle is not solvable")
-        # else:
-        #     print("The puzzle is solvable")
+        if eightPuzzleSolver.isTableSolvable(selected_matrix) == False:
+            print("The puzzle is not solvable")
+        else:
+            print("The puzzle is solvable")
 
             # Breadth First
-        if algorithmId == 0:
-            print("Executing breadthFirst")
-            startTime = time.time()
-            eightPuzzleSolver.breadthFirst(selected_matrix)
-            endTime = time.time()
-            print("Time elapsed in seconds: ", endTime - startTime)
-        
-        # Greedy
-        elif algorithmId == 1:
-            print("Executing greedy")
-            startTime = time.time()
-            eightPuzzleSolver.greedy(selected_matrix)
-            endTime = time.time()
-            print("Time elapsed in seconds: ", endTime - startTime)
-        
-        # IDS
-        elif algorithmId == 2:
-            print("Executing IDS")
-            startTime = time.time()
-            eightPuzzleSolver.IDS(selected_matrix)
-            endTime = time.time()
-            print("Time elapsed in seconds: ", endTime - startTime)
-        
-        # IDS star
-        elif algorithmId == 3:
-            print("Executing IDS star")
-            startTime = time.time()
-            eightPuzzleSolver.idsStar(selected_matrix)
-            endTime = time.time()
-            print("Time elapsed in seconds: ", endTime - startTime)
-        
-        # Invalid algorithm id
-        else:
-            print("Invalid algorithm id")
-            return
+        using = True
+
+        while(using):
+            algorithmId = int(input("\nChoose algorithm to solve the puzzle: \n0. Ancho primero\n1. Greedy\n2. IDS\n3. IDS star\n4. Salir\n"))
+            
+            if algorithmId == 0:
+                print("Executing breadthFirst")
+                startTime = time.time()
+                eightPuzzleSolver.breadthFirst(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
+                
+                process = psutil.Process()
+                memoryUsage = process.memory_info().rss  # in bytes
+                MemoryUsageMegabytes = memoryUsage / (1024 * 1024)
+                print("Memory Usage:", MemoryUsageMegabytes, "MegaBytes")
+            
+            # Greedy
+            elif algorithmId == 1:
+                print("Executing greedy")
+                startTime = time.time()
+                eightPuzzleSolver.greedy(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
+            
+                process = psutil.Process()
+                memoryUsage = process.memory_info().rss  # in bytes
+                MemoryUsageMegabytes = memoryUsage / (1024 * 1024)
+                print("Memory Usage:", MemoryUsageMegabytes, "MegaBytes")
+            # IDS
+            elif algorithmId == 2:
+                print("Executing IDS")
+                startTime = time.time()
+                eightPuzzleSolver.IDS(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
+
+                process = psutil.Process()
+                memoryUsage = process.memory_info().rss  # in bytes
+                MemoryUsageMegabytes = memoryUsage / (1024 * 1024)
+                print("Memory Usage:", MemoryUsageMegabytes, "MegaBytes")
+
+            # IDS star
+            elif algorithmId == 3:
+                print("Executing IDS star")
+                startTime = time.time()
+                eightPuzzleSolver.idsStar(selected_matrix)
+                endTime = time.time()
+                print("Time elapsed in seconds: ", endTime - startTime)
+
+                process = psutil.Process()
+                memoryUsage = process.memory_info().rss  # in bytes
+                MemoryUsageMegabytes = memoryUsage / (1024 * 1024)
+                print("Memory Usage:", MemoryUsageMegabytes, "MegaBytes")
+
+            # Invalid algorithm id
+            elif algorithmId == 4:
+                using = False
+            else:
+                print("Invalid algorithm id")
+                return
 
         # Get memory usage
-        process = psutil.Process()
-        memoryUsage = process.memory_info().rss  # in bytes
-        print("Memory Usage:", memoryUsage, "bytes")
+        
