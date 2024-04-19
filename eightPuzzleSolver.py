@@ -415,3 +415,25 @@ def isTableSolvable(matrix):
         return (inversions % 2 == 0) == (blankRowFromBottom % 2 == 1)
     else:
         return inversions % 2 == 0
+
+# createRandomMatrix function creates a random matrix
+def createRandomMatrix():
+    import random
+    matrix = [[1, 2, 3],
+            [4, 5, 6],
+            [7, 8, 0]]
+
+    for i in range(100):
+        xAxis, yAxis = findZero(matrix)
+        canGoUp, canGoRight, canGoDown, canGoLeft = allMoves(matrix)
+        move = random.randint(0, 3)
+        if move == 0 and canGoUp:
+            matrix = goUp(matrix, xAxis, yAxis)
+        elif move == 1 and canGoRight:
+            matrix = goRight(matrix, xAxis, yAxis)
+        elif move == 2 and canGoDown:
+            matrix = goDown(matrix, xAxis, yAxis)
+        elif move == 3 and canGoLeft:
+            matrix = goLeft(matrix, xAxis, yAxis)
+    
+    return matrix
