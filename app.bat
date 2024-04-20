@@ -17,5 +17,12 @@ if errorlevel 1 (
     del python-installer.exe
 )
 
+REM Check if customtkinter is installed
+pip3 show customtkinter >nul 2>&1
+if errorlevel 1 (
+    echo customtkinter is not installed. Installing...
+    pip3 install customtkinter
+)
+
 REM Run your Python app
 python main.py
