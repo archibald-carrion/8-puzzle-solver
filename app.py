@@ -34,7 +34,7 @@ class App(customtkinter.CTk):
         # lower middle section that contains the buttons to create a new puzzle
         self.init_bottom_middle_section()
         # upper right side bar section that contains the buttons to solve the puzzle
-        # self.init_top_right_sidebar()
+        self.init_top_right_sidebar()
         # lower right side bar section that contains the results of the puzzle
         # self.init_bottom_right_sidebar()
 
@@ -146,6 +146,42 @@ class App(customtkinter.CTk):
         self.new_puzzle_button = customtkinter.CTkButton(self.middle_section_frame, text="Create new puzzle", command=self.new_puzzle_event)
         self.new_puzzle_button.grid(row=1, column=0, padx=100, pady=20)
 
+    def init_top_right_sidebar(self):
+        self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        self.right_sidebar_frame.grid(row=0, column=2, rowspan=2, sticky="nsew")
+
+        self.solves_puzzle_buttons = customtkinter.CTkFrame(self.right_sidebar_frame)
+        self.solves_puzzle_buttons.grid(row=0, column=0, padx=20, pady=(20, 10))
+
+        # label for the buttons
+        self.solves_puzzle_label = customtkinter.CTkLabel(self.solves_puzzle_buttons, text="Solve the puzzle", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.solves_puzzle_label.grid(row=0, column=0, padx=10, pady=10)
+
+        # there is 4 buttons to solve the puzzle, one for each algorithm
+        self.breadth_first_button = customtkinter.CTkButton(self.solves_puzzle_buttons, text="Breadth First", command=self.solve_puzzle_breadth_first)
+        self.breadth_first_button.grid(row=1, column=0, padx=10, pady=10)
+
+        self.greedy_button = customtkinter.CTkButton(self.solves_puzzle_buttons, text="Greedy", command=self.solve_puzzle_greedy)
+        self.greedy_button.grid(row=2, column=0, padx=10, pady=10)
+
+        self.ids_button = customtkinter.CTkButton(self.solves_puzzle_buttons, text="IDS", command=self.solve_puzzle_ids)
+        self.ids_button.grid(row=3, column=0, padx=10, pady=10)
+
+        self.ids_star_button = customtkinter.CTkButton(self.solves_puzzle_buttons, text="IDS Star", command=self.solve_puzzle_ids_star)
+        self.ids_star_button.grid(row=4, column=0, padx=10, pady=10)
+
+    def solve_puzzle_breadth_first(self):
+        print("Solving puzzle using Breadth First algorithm")
+    
+    def solve_puzzle_greedy(self):
+        print("Solving puzzle using Greedy algorithm")
+
+    def solve_puzzle_ids(self):
+        print("Solving puzzle using IDS algorithm")
+
+    def solve_puzzle_ids_star(self):
+        print("Solving puzzle using IDS Star algorithm")
+
     # click_tile function is called when a tile is clicked
     def click_tile(self, button):
         # check if the empty tile is clicked
@@ -211,17 +247,17 @@ class App(customtkinter.CTk):
         print(new_puzzle)
         self.update_puzzle(new_puzzle)
 
+    # update_puzzle function updates the puzzle grid with the new puzzle
     def update_puzzle(self, new_puzzle):
         for i in range(3):
             for j in range(3):
                 tile_number = new_puzzle[i][j]
+                # if the tile number is 0, use the empty tile text
                 if tile_number == 0:
                     self.tiles[i][j].configure(text=empty_tile)
+                # otherwise, use the tile number
                 else:
                     self.tiles[i][j].configure(text=f" {tile_number} ")
-
-
-
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
@@ -233,9 +269,6 @@ class App(customtkinter.CTk):
     def quit_simulation_event(self):
         self.destroy()
         exit()
-
-
-
 
     # def run(self):
     #     print('App is running')
