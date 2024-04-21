@@ -12,7 +12,7 @@ customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark
 customtkinter.set_default_color_theme("green")
 
 # Create a font object with the desired size
-custom_font = ("Helvetica", 12) # font used in the buttons of the puzzle
+custom_font = ("Helvetica", 30) # font used in the buttons of the puzzle
           
 class App(customtkinter.CTk):
     def __init__(self):
