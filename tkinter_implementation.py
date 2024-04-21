@@ -9,10 +9,10 @@ class EightPuzzleApp:
         self.tiles = [[None, None, None], [None, None, None], [None, None, None]]
         
         # Create the puzzle grid
-        self.tile_1 = tk.Button(master, text=" ", width=5, height=2, command=lambda: self.click_tile(tile_1))
+        self.tile_1 = tk.Button(master, text=" ", width=5, height=2, command=lambda: self.click_tile(1))
         self.tile_1.grid(row=0, column=0, padx=5, pady=5)
 
-        self.tile_2 = tk.Button(master, text=" ", width=5, height=2, command=lambda: self.click_tile(tile_2))
+        self.tile_2 = tk.Button(master, text=" ", width=5, height=2, command=lambda: self.click_tile(2))
         self.tile_2.grid(row=0, column=1, padx=5, pady=5)
 
         self.tile_3 = tk.Button(master, text=" ", width=5, height=2, command=lambda: self.click_tile(3))
@@ -39,18 +39,28 @@ class EightPuzzleApp:
         self.tiles = [[self.tile_1, self.tile_2, self.tile_3], [self.tile_4, self.tile_5, self.tile_6], [self.tile_7, self.tile_8, self.tile_9]]
         # Initialize the puzzle
         self.init_puzzle()
+        self.tile_map= {1: self.tile_1, 
+                        2: self.tile_2,
+                        3: self.tile_3, 
+                        4: self.tile_4, 
+                        5: self.tile_5, 
+                        6: self.tile_6, 
+                        7: self.tile_7, 
+                        8: self.tile_8, 
+                        0: self.tile_9}
 
 
     def init_puzzle(self):
         # set the current state of the puzzle 
-        self.current_state = [[1, 2, 3], [4, 5, 6], [7, 8, " "]]
-        self.update_tiles()
+        initial_state = [[1, 2, 3], [4, 5, 6], [7, 8, " "]]
+        # self.update_tiles()
 
-    def update_tiles(self):
-        # Update the tiles with the current state of the puzzle
         for i in range(3):
             for j in range(3):
-                self.tiles[i][j].config(text=str(self.current_state[i][j]))
+                self.tiles[i][j].config(text=str(initial_state[i][j]))
+
+    # def update_tiles(self):
+        # Update the tiles with the current state of the puzzle
                 #value = self.current_state[i][j]
                 #self.tiles[i][j].config(text=str(value))
 
@@ -61,10 +71,13 @@ class EightPuzzleApp:
         # check if the button is next to the empty tile
         for i in range(3):
             for j in range(3):
-                # print(self.tiles[i][j].cget("text"))
-                #if str(self.tiles[i][j].cget("text")) == str(button):
-                if self.tiles[i][j] == button:
+                # check if the button number is the same as the tile using the tile_map
+                if self.tile_map[button] == self.tiles[i][j]:
+                    # print(self.tiles[i][j].cget("text"))
+                    #if str(self.tiles[i][j].cget("text")) == str(button):
+                    #if self.tiles[i][j] == button:
                     print("Button found")
+                    print("Button found, number: ", str(self.tiles[i][j]))
                     self.move_tile(i, j)
                     return
 
@@ -86,45 +99,45 @@ class EightPuzzleApp:
         can_go_right = col < 2
 
         if can_go_up and self.tiles[row - 1][col].cget("text") == " ":
-            buffer_tile = self.tiles[row][col]
-            self.tiles[row][col] = self.tiles[row - 1][col]
-            self.tiles[row - 1][col] = buffer_tile
-            # label = self.tiles[row][col].cget("text")
-            # self.tiles[row][col].config(text=" ")
-            # self.tiles[row - 1][col].config(text=label)
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row - 1][col]
+            # self.tiles[row - 1][col] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].config(text=" ")
+            self.tiles[row - 1][col].config(text=label)
             print("Moving tile up")
             # self.tiles[row][col], self.tiles[row - 1][col] = self.tiles[row - 1][col], self.tiles[row][col]
             return
 
         if can_go_down and self.tiles[row + 1][col].cget("text") == " ":
-            buffer_tile = self.tiles[row][col]
-            self.tiles[row][col] = self.tiles[row + 1][col]
-            self.tiles[row + 1][col] = buffer_tile
-            # label = self.tiles[row][col].cget("text")
-            # self.tiles[row][col].config(text=" ")
-            # self.tiles[row + 1][col].config(text=label)
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row + 1][col]
+            # self.tiles[row + 1][col] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].config(text=" ")
+            self.tiles[row + 1][col].config(text=label)
             print("Moving tile down")
             # self.tiles[row][col], self.tiles[row + 1][col] = self.tiles[row + 1][col], self.tiles[row][col]
             return
 
         if can_go_left and self.tiles[row][col - 1].cget("text") == " ":
-            buffer_tile = self.tiles[row][col]
-            self.tiles[row][col] = self.tiles[row][col - 1]
-            self.tiles[row][col - 1] = buffer_tile
-            # label = self.tiles[row][col].cget("text")
-            # self.tiles[row][col].config(text=" ")
-            # self.tiles[row][col - 1].config(text=label)
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row][col - 1]
+            # self.tiles[row][col - 1] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].config(text=" ")
+            self.tiles[row][col - 1].config(text=label)
             print("Moving tile left")
             # self.tiles[row][col], self.tiles[row][col - 1] = self.tiles[row][col - 1], self.tiles[row][col]
             return
         
         if can_go_right and self.tiles[row][col + 1].cget("text") == " ":
-            buffer_tile = self.tiles[row][col]
-            self.tiles[row][col] = self.tiles[row][col + 1]
-            self.tiles[row][col + 1] = buffer_tile
-            # label = self.tiles[row][col].cget("text")
-            # self.tiles[row][col].config(text=" ")
-            # self.tiles[row][col+1].config(text=label)
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row][col + 1]
+            # self.tiles[row][col + 1] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].config(text=" ")
+            self.tiles[row][col+1].config(text=label)
             print("Moving tile right")
             # self.tiles[row][col], self.tiles[row][col + 1] = self.tiles[row][col + 1], self.tiles[row][col]
             return
