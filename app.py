@@ -10,6 +10,9 @@ import matrices
 
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")
+
+# Create a font object with the desired size
+custom_font = ("Helvetica", 12) # font used in the buttons of the puzzle
           
 class App(customtkinter.CTk):
     def __init__(self):
@@ -74,6 +77,7 @@ class App(customtkinter.CTk):
         # Create the puzzle grid
         self.tile_1 = customtkinter.CTkButton(self.puzzle_frame, text=" 1 ", width=5, height=2, command=self.clicked_tile_1_event)
         self.tile_1.grid(row=0, column=0, padx=10, pady=10)
+        self.tile_1.configure(font = custom_font)
         #self.tile_1.configure(state="enabled")
         # self.tile_1.bind("<Enter>", self.click_tile(1))
         # makethe buton square and bigger
@@ -81,34 +85,41 @@ class App(customtkinter.CTk):
 
         self.tile_2 = customtkinter.CTkButton(self.puzzle_frame, text=" 2 ", width=5, height=2, command=self.clicked_tile_2_event)
         self.tile_2.grid(row=0, column=1, padx=10, pady=10)
-        #self.tile_2.configure(state="enabled")
+        self.tile_2.configure(font = custom_font)
 
         self.tile_3 = customtkinter.CTkButton(self.puzzle_frame, text=" 3 ", width=5, height=2, command=self.clicked_tile_3_event)
         self.tile_3.grid(row=0, column=2, padx=10, pady=10)
+        self.tile_3.configure(font = custom_font)
         #self.tile_3.configure(state="enabled")
         
         self.tile_4 = customtkinter.CTkButton(self.puzzle_frame, text=" 4 ", width=5, height=2, command=self.clicked_tile_4_event)
         self.tile_4.grid(row=1, column=0, padx=10, pady=10)
+        self.tile_4.configure(font = custom_font)
         #self.tile_4.configure(state="enabled")
 
         self.tile_5 = customtkinter.CTkButton(self.puzzle_frame, text=" 5 ", width=5, height=2, command=self.clicked_tile_5_event)
         self.tile_5.grid(row=1, column=1, padx=10, pady=10)
+        self.tile_5.configure(font = custom_font)
         #self.tile_5.configure(state="enabled")
 
         self.tile_6 = customtkinter.CTkButton(self.puzzle_frame, text=" 6 ", width=5, height=2, command=self.clicked_tile_6_event)
         self.tile_6.grid(row=1, column=2, padx=10, pady=10)
+        self.tile_6.configure(font = custom_font)
         #self.tile_6.configure(state="enabled")
         
         self.tile_7 = customtkinter.CTkButton(self.puzzle_frame, text=" 7 ", width=5, height=2, command=self.clicked_tile_7_event)
         self.tile_7.grid(row=2, column=0, padx=10, pady=10)
+        self.tile_7.configure(font = custom_font)
         # self.tile_7.configure(state="enabled")
 
         self.tile_8 = customtkinter.CTkButton(self.puzzle_frame, text=" 8 ", width=5, height=2, command=self.clicked_tile_8_event)
         self.tile_8.grid(row=2, column=1, padx=10, pady=10)
+        self.tile_8.configure(font = custom_font)
         # self.tile_8.configure(state="enabled")
 
         self.tile_9 = customtkinter.CTkButton(self.puzzle_frame, text="    ", width=5, height=2, command=self.clicked_tile_9_event)
         self.tile_9.grid(row=2, column=2, padx=10, pady=10)
+        self.tile_9.configure(font = custom_font)
         # self.tile_9.configure(state="enabled")
         
         self.tiles = [[self.tile_1, self.tile_2, self.tile_3], [self.tile_4, self.tile_5, self.tile_6], [self.tile_7, self.tile_8, self.tile_9]]
@@ -186,10 +197,13 @@ class App(customtkinter.CTk):
     
     def clicked_tile_9_event(self):
         print("Tile 9 clicked")
-        self.click_tile(9)
+        self.click_tile(0)
 
     def click_tile(self, button):
         print("Button clicked")
+        if self.tile_map.get(button).cget("text") == "    ":  # check if the empty tile is clicked
+            print("Empty tile clicked")
+            return
         # print(button)
 
         # check if the button is next to the empty tile
@@ -207,54 +221,37 @@ class App(customtkinter.CTk):
          
     def move_tile(self, row, col):
         # Move the tile if possible
-        # print("Moving tile")
         can_go_up = row > 0
         can_go_down = row < 2
         can_go_left = col > 0
         can_go_right = col < 2
 
         if can_go_up and self.tiles[row - 1][col].cget("text") == "    ":
-            # buffer_tile = self.tiles[row][col]
-            # self.tiles[row][col] = self.tiles[row - 1][col]
-            # self.tiles[row - 1][col] = buffer_tile
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row - 1][col].configure(text=label)
             print("Moving tile up")
-            # self.tiles[row][col], self.tiles[row - 1][col] = self.tiles[row - 1][col], self.tiles[row][col]
             return
 
         if can_go_down and self.tiles[row + 1][col].cget("text") == "    ":
-            # buffer_tile = self.tiles[row][col]
-            # self.tiles[row][col] = self.tiles[row + 1][col]
-            # self.tiles[row + 1][col] = buffer_tile
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row + 1][col].configure(text=label)
             print("Moving tile down")
-            # self.tiles[row][col], self.tiles[row + 1][col] = self.tiles[row + 1][col], self.tiles[row][col]
             return
 
         if can_go_left and self.tiles[row][col - 1].cget("text") == "    ":
-            # buffer_tile = self.tiles[row][col]
-            # self.tiles[row][col] = self.tiles[row][col - 1]
-            # self.tiles[row][col - 1] = buffer_tile
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row][col - 1].configure(text=label)
             print("Moving tile left")
-            # self.tiles[row][col], self.tiles[row][col - 1] = self.tiles[row][col - 1], self.tiles[row][col]
             return
         
         if can_go_right and self.tiles[row][col + 1].cget("text") == "    ":
-            # buffer_tile = self.tiles[row][col]
-            # self.tiles[row][col] = self.tiles[row][col + 1]
-            # self.tiles[row][col + 1] = buffer_tile
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row][col+1].configure(text=label)
             print("Moving tile right")
-            # self.tiles[row][col], self.tiles[row][col + 1] = self.tiles[row][col + 1], self.tiles[row][col]
             return
 
         print("Invalid move")
