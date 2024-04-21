@@ -172,15 +172,41 @@ class App(customtkinter.CTk):
 
     def solve_puzzle_breadth_first(self):
         print("Solving puzzle using Breadth First algorithm")
+        matrix_to_solve = self.get_matrix_from_UI()
+        # solved_puzzle = eightPuzzleSolver.breadthFirst(matrix_to_solve)
+        # self.update_puzzle(solved_puzzle)
+        # get time elapsed, space and update the results
     
     def solve_puzzle_greedy(self):
         print("Solving puzzle using Greedy algorithm")
+        matrix_to_solve = self.get_matrix_from_UI()
+        # solved_puzzle = self.eightPuzzleSolver.greedy(matrix_to_solve)
+        # self.update_puzzle(solved_puzzle)
+        # get time elapsed, space and update the results
 
     def solve_puzzle_ids(self):
         print("Solving puzzle using IDS algorithm")
+        matrix_to_solve = self.get_matrix_from_UI()
+        # solved_puzzle = self.eightPuzzleSolver.IDS(matrix_to_solve)
+        # self.update_puzzle(solved_puzzle)
+        # get time elapsed, space and update the results
 
     def solve_puzzle_ids_star(self):
         print("Solving puzzle using IDS Star algorithm")
+        matrix_to_solve = self.get_matrix_from_UI()
+        # solved_puzzle = eightPuzzleSolver.idsStar(matrix_to_solve)
+        # self.update_puzzle(solved_puzzle)
+        # get time elapsed, space and update the results
+
+    def get_matrix_from_UI(self):
+        matrix_to_solve = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        for i in range(3):
+            for j in range(3):
+                tile_number = self.tiles[i][j].cget("text")
+                if tile_number == empty_tile:
+                    matrix_to_solve[i][j] = 0
+                else:
+                    matrix_to_solve[i][j] = int(tile_number)
 
     # click_tile function is called when a tile is clicked
     def click_tile(self, button):
