@@ -61,25 +61,203 @@ class App(customtkinter.CTk):
         self.quit_button.configure(state="enabled", text="Quit simulation")
 
         # middle section containing the puzzle grid
-        self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
-        self.puzzle_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        # self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        # self.right_sidebar_frame.grid(row=0, column=3, rowspan=4, sticky="nsew")
+        # self.right_sidebar_frame.grid_rowconfigure(5, weight=1)
 
-        # self.tiles = []
-        row = []
-        tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
-        tile.grid(row=0, column=0, padx=5, pady=5)
-        row.append(tile)
+        self.puzzle_frame = customtkinter.CTkFrame(self)
+        self.puzzle_frame.grid(row=0, column=1, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
-        tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
-        tile.grid(row=1, column=0, padx=5, pady=5)
-        row.append(tile)
+                # Create the tiles as a matrix
+        self.tiles = [[None, None, None], [None, None, None], [None, None, None]]
+        
+        # Create the puzzle grid
+        self.tile_1 = customtkinter.CTkButton(self.puzzle_frame, text=" 1 ", width=5, height=2, command=self.clicked_tile_1_event)
+        self.tile_1.grid(row=0, column=0, padx=10, pady=10)
+        #self.tile_1.configure(state="enabled")
+        # self.tile_1.bind("<Enter>", self.click_tile(1))
+        # makethe buton square and bigger
+        
 
-        tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
-        tile.grid(row=2, column=0, padx=5, pady=5)
-        row.append(tile)
+        self.tile_2 = customtkinter.CTkButton(self.puzzle_frame, text=" 2 ", width=5, height=2, command=self.clicked_tile_2_event)
+        self.tile_2.grid(row=0, column=1, padx=10, pady=10)
+        #self.tile_2.configure(state="enabled")
 
-        self.puzzle_frame.append(row)
+        self.tile_3 = customtkinter.CTkButton(self.puzzle_frame, text=" 3 ", width=5, height=2, command=self.clicked_tile_3_event)
+        self.tile_3.grid(row=0, column=2, padx=10, pady=10)
+        #self.tile_3.configure(state="enabled")
+        
+        self.tile_4 = customtkinter.CTkButton(self.puzzle_frame, text=" 4 ", width=5, height=2, command=self.clicked_tile_4_event)
+        self.tile_4.grid(row=1, column=0, padx=10, pady=10)
+        #self.tile_4.configure(state="enabled")
+
+        self.tile_5 = customtkinter.CTkButton(self.puzzle_frame, text=" 5 ", width=5, height=2, command=self.clicked_tile_5_event)
+        self.tile_5.grid(row=1, column=1, padx=10, pady=10)
+        #self.tile_5.configure(state="enabled")
+
+        self.tile_6 = customtkinter.CTkButton(self.puzzle_frame, text=" 6 ", width=5, height=2, command=self.clicked_tile_6_event)
+        self.tile_6.grid(row=1, column=2, padx=10, pady=10)
+        #self.tile_6.configure(state="enabled")
+        
+        self.tile_7 = customtkinter.CTkButton(self.puzzle_frame, text=" 7 ", width=5, height=2, command=self.clicked_tile_7_event)
+        self.tile_7.grid(row=2, column=0, padx=10, pady=10)
+        # self.tile_7.configure(state="enabled")
+
+        self.tile_8 = customtkinter.CTkButton(self.puzzle_frame, text=" 8 ", width=5, height=2, command=self.clicked_tile_8_event)
+        self.tile_8.grid(row=2, column=1, padx=10, pady=10)
+        # self.tile_8.configure(state="enabled")
+
+        self.tile_9 = customtkinter.CTkButton(self.puzzle_frame, text="    ", width=5, height=2, command=self.clicked_tile_9_event)
+        self.tile_9.grid(row=2, column=2, padx=10, pady=10)
+        # self.tile_9.configure(state="enabled")
+        
+        self.tiles = [[self.tile_1, self.tile_2, self.tile_3], [self.tile_4, self.tile_5, self.tile_6], [self.tile_7, self.tile_8, self.tile_9]]
+        # Initialize the puzzle
+        # self.init_puzzle()
+        self.tile_map= {1: self.tile_1, 
+                        2: self.tile_2,
+                        3: self.tile_3, 
+                        4: self.tile_4, 
+                        5: self.tile_5, 
+                        6: self.tile_6, 
+                        7: self.tile_7, 
+                        8: self.tile_8, 
+                        0: self.tile_9}
+
+        # # self.tiles = []
+        # row = []
+        # tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
+        # tile.grid(row=0, column=0, padx=5, pady=5)
+        # row.append(tile)
+
+        # tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
+        # tile.grid(row=1, column=0, padx=5, pady=5)
+        # row.append(tile)
+
+        # tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
+        # tile.grid(row=2, column=0, padx=5, pady=5)
+        # row.append(tile)
+
+        # self.puzzle_frame.append(row)
+
+
+
+        # def init_puzzle(self):
+        #     # set the current state of the puzzle 
+        #     initial_state = [[1, 2, 3], [4, 5, 6], [7, 8, " "]]
+        #     # self.update_tiles()
+
+        #     for i in range(3):
+        #         for j in range(3):
+        #             # self.tiles[i][j].configure(text=str(initial_state[i][j]))
+        #             print("Setting tile: ", str(initial_state[i][j]))
+
+    def clicked_tile_1_event(self):
+        print("Tile 1 clicked")
+        self.click_tile(1)
+
+    def clicked_tile_2_event(self):
+        print("Tile 2 clicked")
+        self.click_tile(2)
+
+    def clicked_tile_3_event(self):
+        print("Tile 3 clicked")
+        self.click_tile(3)
+
+    def clicked_tile_4_event(self):
+        print("Tile 4 clicked")
+        self.click_tile(4)
+    
+    def clicked_tile_5_event(self):
+        print("Tile 5 clicked")
+        self.click_tile(5)
+
+    def clicked_tile_6_event(self):
+        print("Tile 6 clicked")
+        self.click_tile(6)
+    
+    def clicked_tile_7_event(self):
+        print("Tile 7 clicked")
+        self.click_tile(7)
+    
+    def clicked_tile_8_event(self):
+        print("Tile 8 clicked")
+        self.click_tile(8)
+    
+    def clicked_tile_9_event(self):
+        print("Tile 9 clicked")
+        self.click_tile(9)
+
+    def click_tile(self, button):
+        print("Button clicked")
+        # print(button)
+
+        # check if the button is next to the empty tile
+        for i in range(3):
+            for j in range(3):
+                # check if the button number is the same as the tile using the tile_map
+                if self.tile_map[button] == self.tiles[i][j]:
+                    # print(self.tiles[i][j].cget("text"))
+                    #if str(self.tiles[i][j].cget("text")) == str(button):
+                    #if self.tiles[i][j] == button:
+                    print("Button found")
+                    print("Button found, number: ", str(self.tiles[i][j]))
+                    self.move_tile(i, j)
+                    return
          
+    def move_tile(self, row, col):
+        # Move the tile if possible
+        # print("Moving tile")
+        can_go_up = row > 0
+        can_go_down = row < 2
+        can_go_left = col > 0
+        can_go_right = col < 2
+
+        if can_go_up and self.tiles[row - 1][col].cget("text") == "    ":
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row - 1][col]
+            # self.tiles[row - 1][col] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].configure(text="    ")
+            self.tiles[row - 1][col].configure(text=label)
+            print("Moving tile up")
+            # self.tiles[row][col], self.tiles[row - 1][col] = self.tiles[row - 1][col], self.tiles[row][col]
+            return
+
+        if can_go_down and self.tiles[row + 1][col].cget("text") == "    ":
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row + 1][col]
+            # self.tiles[row + 1][col] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].configure(text="    ")
+            self.tiles[row + 1][col].configure(text=label)
+            print("Moving tile down")
+            # self.tiles[row][col], self.tiles[row + 1][col] = self.tiles[row + 1][col], self.tiles[row][col]
+            return
+
+        if can_go_left and self.tiles[row][col - 1].cget("text") == "    ":
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row][col - 1]
+            # self.tiles[row][col - 1] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].configure(text="    ")
+            self.tiles[row][col - 1].configure(text=label)
+            print("Moving tile left")
+            # self.tiles[row][col], self.tiles[row][col - 1] = self.tiles[row][col - 1], self.tiles[row][col]
+            return
+        
+        if can_go_right and self.tiles[row][col + 1].cget("text") == "    ":
+            # buffer_tile = self.tiles[row][col]
+            # self.tiles[row][col] = self.tiles[row][col + 1]
+            # self.tiles[row][col + 1] = buffer_tile
+            label = self.tiles[row][col].cget("text")
+            self.tiles[row][col].configure(text="    ")
+            self.tiles[row][col+1].configure(text=label)
+            print("Moving tile right")
+            # self.tiles[row][col], self.tiles[row][col + 1] = self.tiles[row][col + 1], self.tiles[row][col]
+            return
+
+        print("Invalid move")
 
 
     def run(self):
@@ -156,10 +334,10 @@ class App(customtkinter.CTk):
         self.destroy()
         exit()
 
-    def click_tile(self, button):
-        # Handle clicks on tiles
-        for i in range(3):
-            for j in range(3):
-                if self.tiles[i][j] == button:
-                    self.move_tile(i, j)
-                    return
+    # def click_tile(self, button):
+    #     # Handle clicks on tiles
+    #     for i in range(3):
+    #         for j in range(3):
+    #             if self.tiles[i][j] == button:
+    #                 self.move_tile(i, j)
+    #                 return
