@@ -203,8 +203,37 @@ class App(customtkinter.CTk):
 
         # print("Invalid move") # debugging purposes
 
+    # new_puzzle_event function is called when the new puzzle button is clicked
+    # it creates a new puzzle by shuffling the tiles
     def new_puzzle_event(self):
         print("New puzzle button clicked")
+        new_puzzle = eightPuzzleSolver.createRandomMatrix()
+        print(new_puzzle)
+        self.update_puzzle(new_puzzle)
+
+    def update_puzzle(self, new_puzzle):
+        for i in range(3):
+            for j in range(3):
+                tile_number = new_puzzle[i][j]
+                if tile_number == 0:
+                    self.tiles[i][j].configure(text=empty_tile)
+                else:
+                    self.tiles[i][j].configure(text=f" {tile_number} ")
+
+
+
+
+    def change_appearance_mode_event(self, new_appearance_mode: str):
+        customtkinter.set_appearance_mode(new_appearance_mode)
+
+    def change_scaling_event(self, new_scaling: str):
+        new_scaling_float = int(new_scaling.replace("%", "")) / 100
+        customtkinter.set_widget_scaling(new_scaling_float)
+
+    def quit_simulation_event(self):
+        self.destroy()
+        exit()
+
 
 
 
@@ -269,15 +298,3 @@ class App(customtkinter.CTk):
     #         process = psutil.Process()
     #         memoryUsage = process.memory_info().rss  # in bytes
     #         print("Memory Usage:", memoryUsage, "bytes")
-
-
-    def change_appearance_mode_event(self, new_appearance_mode: str):
-        customtkinter.set_appearance_mode(new_appearance_mode)
-
-    def change_scaling_event(self, new_scaling: str):
-        new_scaling_float = int(new_scaling.replace("%", "")) / 100
-        customtkinter.set_widget_scaling(new_scaling_float)
-
-    def quit_simulation_event(self):
-        self.destroy()
-        exit()
