@@ -32,7 +32,7 @@ class App(customtkinter.CTk):
         # upper middle section containing the puzzle grid
         self.init_puzzle()
         # lower middle section that contains the buttons to create a new puzzle
-        # self.init_bottom_middle_section()
+        self.init_bottom_middle_section()
         # upper right side bar section that contains the buttons to solve the puzzle
         # self.init_top_right_sidebar()
         # lower right side bar section that contains the results of the puzzle
@@ -81,15 +81,17 @@ class App(customtkinter.CTk):
 
     # init_puzzle function initializes the puzzle section of the app
     def init_puzzle(self):
-        self.puzzle_frame = customtkinter.CTkFrame(self)
-        self.puzzle_frame.grid(row=0, column=1, padx=(20, 20), pady=(20, 20), sticky="nsew")
+        self.middle_section_frame = customtkinter.CTkFrame(self)
+        self.middle_section_frame.grid(row=0, column=1, padx=(20, 20), pady=(20, 20), rowspan=2, sticky="nsew")
+        self.puzzle_frame = customtkinter.CTkFrame(self.middle_section_frame)
+        # TODO: change the padx to a more dynamic value so it stays in the middle of the screen
+        self.puzzle_frame.grid(row=0, column=0, padx=(100, 100), pady=(50, 20), sticky="nsew")
 
         # Create the tiles as a matrix
         self.tiles = [[None, None, None], [None, None, None], [None, None, None]]
         
         # Create the puzzle grid
         self.tile_1 = customtkinter.CTkButton(self.puzzle_frame, text=" 1 ", width=5, height=2, command=lambda:self.click_tile(1))
-        # clicked_tile_1_event)
         self.tile_1.grid(row=0, column=0, padx=10, pady=10)
         self.tile_1.configure(font = custom_font)       
 
@@ -114,7 +116,7 @@ class App(customtkinter.CTk):
         self.tile_6.configure(font = custom_font)
         
         self.tile_7 = customtkinter.CTkButton(self.puzzle_frame, text=" 7 ", width=5, height=2, command=lambda:self.click_tile(7))
-        self.tile_7.grid(row=2, column=0, padx=10, pady=10)
+        self.tile_7.grid(row=2, column=0,padx=10, pady=10)
         self.tile_7.configure(font = custom_font)
 
         self.tile_8 = customtkinter.CTkButton(self.puzzle_frame, text=" 8 ", width=5, height=2, command=lambda:self.click_tile(8))
@@ -136,6 +138,13 @@ class App(customtkinter.CTk):
                         7: self.tile_7, 
                         8: self.tile_8, 
                         0: self.tile_9}
+
+    def init_bottom_middle_section(self):
+        # self.bottom_middle_section_frame = customtkinter.CTkFrame(self.middle_section_frame, border_color = None)
+        # self.bottom_middle_section_frame.grid(row=1, column=0, padx=(100, 100), pady=(20, 20), sticky="nsew")
+
+        self.new_puzzle_button = customtkinter.CTkButton(self.middle_section_frame, text="Create new puzzle", command=self.new_puzzle_event)
+        self.new_puzzle_button.grid(row=1, column=0, padx=100, pady=20)
 
     # click_tile function is called when a tile is clicked
     def click_tile(self, button):
@@ -194,68 +203,72 @@ class App(customtkinter.CTk):
 
         # print("Invalid move") # debugging purposes
 
+    def new_puzzle_event(self):
+        print("New puzzle button clicked")
 
-    def run(self):
-        print('App is running')
 
-        # alternative implementation uses function from matrices.py to read matrices from matrices.txt
 
-        # previous format was better because it shows the matrix in a more readable way
-        # but it stops being viable when the user has to choose a matrix among 20
-        matrixId = int(input("Choose matrix to solve from 0 to 39: "))
-        selected_matrix = matrices.matricesMaping.get(matrixId)
+    # def run(self):
+    #     print('App is running')
 
-        algorithmId = int(input("Choose algorithm to solve the puzzle: \n0. Breadth first\n1. Greedy\n2. IDS\n3. IDS star\n"))
+    #     # alternative implementation uses function from matrices.py to read matrices from matrices.txt
 
-        print("solving the puzzle: ")
-        print(selected_matrix)
+    #     # previous format was better because it shows the matrix in a more readable way
+    #     # but it stops being viable when the user has to choose a matrix among 20
+    #     matrixId = int(input("Choose matrix to solve from 0 to 39: "))
+    #     selected_matrix = matrices.matricesMaping.get(matrixId)
+
+    #     algorithmId = int(input("Choose algorithm to solve the puzzle: \n0. Breadth first\n1. Greedy\n2. IDS\n3. IDS star\n"))
+
+    #     print("solving the puzzle: ")
+    #     print(selected_matrix)
         
-        if eightPuzzleSolver.isTableSolvable(selected_matrix) == False:
-            print("The puzzle is not solvable")
-        else:
-            print("The puzzle is solvable")
+    #     if eightPuzzleSolver.isTableSolvable(selected_matrix) == False:
+    #         print("The puzzle is not solvable")
+    #     else:
+    #         print("The puzzle is solvable")
 
-            # Breadth First
-            if algorithmId == 0:
-                print("Executing breadthFirst")
-                startTime = time.time()
-                eightPuzzleSolver.breadthFirst(selected_matrix)
-                endTime = time.time()
-                print("Time elapsed in seconds: ", endTime - startTime)
+    #         # Breadth First
+    #         if algorithmId == 0:
+    #             print("Executing breadthFirst")
+    #             startTime = time.time()
+    #             eightPuzzleSolver.breadthFirst(selected_matrix)
+    #             endTime = time.time()
+    #             print("Time elapsed in seconds: ", endTime - startTime)
             
-            # Greedy
-            elif algorithmId == 1:
-                print("Executing greedy")
-                startTime = time.time()
-                eightPuzzleSolver.greedy(selected_matrix)
-                endTime = time.time()
-                print("Time elapsed in seconds: ", endTime - startTime)
+    #         # Greedy
+    #         elif algorithmId == 1:
+    #             print("Executing greedy")
+    #             startTime = time.time()
+    #             eightPuzzleSolver.greedy(selected_matrix)
+    #             endTime = time.time()
+    #             print("Time elapsed in seconds: ", endTime - startTime)
             
-            # IDS
-            elif algorithmId == 2:
-                print("Executing IDS")
-                startTime = time.time()
-                eightPuzzleSolver.IDS(selected_matrix)
-                endTime = time.time()
-                print("Time elapsed in seconds: ", endTime - startTime)
+    #         # IDS
+    #         elif algorithmId == 2:
+    #             print("Executing IDS")
+    #             startTime = time.time()
+    #             eightPuzzleSolver.IDS(selected_matrix)
+    #             endTime = time.time()
+    #             print("Time elapsed in seconds: ", endTime - startTime)
             
-            # IDS star
-            elif algorithmId == 3:
-                print("Executing IDS star")
-                startTime = time.time()
-                eightPuzzleSolver.idsStar(selected_matrix)
-                endTime = time.time()
-                print("Time elapsed in seconds: ", endTime - startTime)
+    #         # IDS star
+    #         elif algorithmId == 3:
+    #             print("Executing IDS star")
+    #             startTime = time.time()
+    #             eightPuzzleSolver.idsStar(selected_matrix)
+    #             endTime = time.time()
+    #             print("Time elapsed in seconds: ", endTime - startTime)
             
-            # Invalid algorithm id
-            else:
-                print("Invalid algorithm id")
-                return
+    #         # Invalid algorithm id
+    #         else:
+    #             print("Invalid algorithm id")
+    #             return
 
-            # Get memory usage
-            process = psutil.Process()
-            memoryUsage = process.memory_info().rss  # in bytes
-            print("Memory Usage:", memoryUsage, "bytes")
+    #         # Get memory usage
+    #         process = psutil.Process()
+    #         memoryUsage = process.memory_info().rss  # in bytes
+    #         print("Memory Usage:", memoryUsage, "bytes")
 
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
