@@ -7,6 +7,7 @@ import time
 import psutil
 import matrices
 
+
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")
           
@@ -58,6 +59,27 @@ class App(customtkinter.CTk):
         self.quit_button = customtkinter.CTkButton(self.left_sidebar_frame, command=self.quit_simulation_event)
         self.quit_button.grid(row=6, column=0, padx=20, pady=(10, 40))
         self.quit_button.configure(state="enabled", text="Quit simulation")
+
+        # middle section containing the puzzle grid
+        self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        self.puzzle_frame = customtkinter.CTkFrame(self, corner_radius=0)
+
+        # self.tiles = []
+        row = []
+        tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
+        tile.grid(row=0, column=0, padx=5, pady=5)
+        row.append(tile)
+
+        tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
+        tile.grid(row=1, column=0, padx=5, pady=5)
+        row.append(tile)
+
+        tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
+        tile.grid(row=2, column=0, padx=5, pady=5)
+        row.append(tile)
+
+        self.puzzle_frame.append(row)
+         
 
 
     def run(self):
@@ -133,3 +155,11 @@ class App(customtkinter.CTk):
     def quit_simulation_event(self):
         self.destroy()
         exit()
+
+    def click_tile(self, button):
+        # Handle clicks on tiles
+        for i in range(3):
+            for j in range(3):
+                if self.tiles[i][j] == button:
+                    self.move_tile(i, j)
+                    return
