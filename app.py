@@ -16,18 +16,15 @@ custom_font = ("Helvetica", 12) # font used in the buttons of the puzzle
           
 class App(customtkinter.CTk):
     def __init__(self):
-        # print('App is initialized')
         super().__init__()
 
         # configure window
         self.title("8 Puzzle Solver")
         self.geometry(f"{1480}x{720}")
 
-
         # configure grid layout (4x4)
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure((2, 3), weight=0)
-        # self.grid_rowconfigure((0, 1, 2), weight=1)
         self.grid_rowconfigure(0, weight=1)
 
         
@@ -63,25 +60,17 @@ class App(customtkinter.CTk):
         self.quit_button.grid(row=6, column=0, padx=20, pady=(10, 40))
         self.quit_button.configure(state="enabled", text="Quit simulation")
 
-        # middle section containing the puzzle grid
-        # self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
-        # self.right_sidebar_frame.grid(row=0, column=3, rowspan=4, sticky="nsew")
-        # self.right_sidebar_frame.grid_rowconfigure(5, weight=1)
 
         self.puzzle_frame = customtkinter.CTkFrame(self)
         self.puzzle_frame.grid(row=0, column=1, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
-                # Create the tiles as a matrix
+        # Create the tiles as a matrix
         self.tiles = [[None, None, None], [None, None, None], [None, None, None]]
         
         # Create the puzzle grid
         self.tile_1 = customtkinter.CTkButton(self.puzzle_frame, text=" 1 ", width=5, height=2, command=self.clicked_tile_1_event)
         self.tile_1.grid(row=0, column=0, padx=10, pady=10)
-        self.tile_1.configure(font = custom_font)
-        #self.tile_1.configure(state="enabled")
-        # self.tile_1.bind("<Enter>", self.click_tile(1))
-        # makethe buton square and bigger
-        
+        self.tile_1.configure(font = custom_font)       
 
         self.tile_2 = customtkinter.CTkButton(self.puzzle_frame, text=" 2 ", width=5, height=2, command=self.clicked_tile_2_event)
         self.tile_2.grid(row=0, column=1, padx=10, pady=10)
@@ -90,41 +79,33 @@ class App(customtkinter.CTk):
         self.tile_3 = customtkinter.CTkButton(self.puzzle_frame, text=" 3 ", width=5, height=2, command=self.clicked_tile_3_event)
         self.tile_3.grid(row=0, column=2, padx=10, pady=10)
         self.tile_3.configure(font = custom_font)
-        #self.tile_3.configure(state="enabled")
         
         self.tile_4 = customtkinter.CTkButton(self.puzzle_frame, text=" 4 ", width=5, height=2, command=self.clicked_tile_4_event)
         self.tile_4.grid(row=1, column=0, padx=10, pady=10)
         self.tile_4.configure(font = custom_font)
-        #self.tile_4.configure(state="enabled")
 
         self.tile_5 = customtkinter.CTkButton(self.puzzle_frame, text=" 5 ", width=5, height=2, command=self.clicked_tile_5_event)
         self.tile_5.grid(row=1, column=1, padx=10, pady=10)
         self.tile_5.configure(font = custom_font)
-        #self.tile_5.configure(state="enabled")
 
         self.tile_6 = customtkinter.CTkButton(self.puzzle_frame, text=" 6 ", width=5, height=2, command=self.clicked_tile_6_event)
         self.tile_6.grid(row=1, column=2, padx=10, pady=10)
         self.tile_6.configure(font = custom_font)
-        #self.tile_6.configure(state="enabled")
         
         self.tile_7 = customtkinter.CTkButton(self.puzzle_frame, text=" 7 ", width=5, height=2, command=self.clicked_tile_7_event)
         self.tile_7.grid(row=2, column=0, padx=10, pady=10)
         self.tile_7.configure(font = custom_font)
-        # self.tile_7.configure(state="enabled")
 
         self.tile_8 = customtkinter.CTkButton(self.puzzle_frame, text=" 8 ", width=5, height=2, command=self.clicked_tile_8_event)
         self.tile_8.grid(row=2, column=1, padx=10, pady=10)
         self.tile_8.configure(font = custom_font)
-        # self.tile_8.configure(state="enabled")
 
         self.tile_9 = customtkinter.CTkButton(self.puzzle_frame, text="    ", width=5, height=2, command=self.clicked_tile_9_event)
         self.tile_9.grid(row=2, column=2, padx=10, pady=10)
         self.tile_9.configure(font = custom_font)
-        # self.tile_9.configure(state="enabled")
         
         self.tiles = [[self.tile_1, self.tile_2, self.tile_3], [self.tile_4, self.tile_5, self.tile_6], [self.tile_7, self.tile_8, self.tile_9]]
-        # Initialize the puzzle
-        # self.init_puzzle()
+
         self.tile_map= {1: self.tile_1, 
                         2: self.tile_2,
                         3: self.tile_3, 
@@ -135,33 +116,12 @@ class App(customtkinter.CTk):
                         8: self.tile_8, 
                         0: self.tile_9}
 
-        # # self.tiles = []
-        # row = []
-        # tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
-        # tile.grid(row=0, column=0, padx=5, pady=5)
-        # row.append(tile)
-
-        # tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
-        # tile.grid(row=1, column=0, padx=5, pady=5)
-        # row.append(tile)
-
-        # tile = customtkinter.CTkButton(master=self.right_sidebar_frame, text=" ", width=5, height=2, command=self.click_tile(tile))
-        # tile.grid(row=2, column=0, padx=5, pady=5)
-        # row.append(tile)
-
-        # self.puzzle_frame.append(row)
+        # middle section containing the puzzle grid
+        # self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        # self.right_sidebar_frame.grid(row=0, column=3, rowspan=4, sticky="nsew")
+        # self.right_sidebar_frame.grid_rowconfigure(5, weight=1)
 
 
-
-        # def init_puzzle(self):
-        #     # set the current state of the puzzle 
-        #     initial_state = [[1, 2, 3], [4, 5, 6], [7, 8, " "]]
-        #     # self.update_tiles()
-
-        #     for i in range(3):
-        #         for j in range(3):
-        #             # self.tiles[i][j].configure(text=str(initial_state[i][j]))
-        #             print("Setting tile: ", str(initial_state[i][j]))
 
     def clicked_tile_1_event(self):
         print("Tile 1 clicked")
@@ -330,11 +290,3 @@ class App(customtkinter.CTk):
     def quit_simulation_event(self):
         self.destroy()
         exit()
-
-    # def click_tile(self, button):
-    #     # Handle clicks on tiles
-    #     for i in range(3):
-    #         for j in range(3):
-    #             if self.tiles[i][j] == button:
-    #                 self.move_tile(i, j)
-    #                 return
