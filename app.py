@@ -68,39 +68,40 @@ class App(customtkinter.CTk):
         self.tiles = [[None, None, None], [None, None, None], [None, None, None]]
         
         # Create the puzzle grid
-        self.tile_1 = customtkinter.CTkButton(self.puzzle_frame, text=" 1 ", width=5, height=2, command=self.clicked_tile_1_event)
+        self.tile_1 = customtkinter.CTkButton(self.puzzle_frame, text=" 1 ", width=5, height=2, command=lambda:self.click_tile(1))
+        # clicked_tile_1_event)
         self.tile_1.grid(row=0, column=0, padx=10, pady=10)
         self.tile_1.configure(font = custom_font)       
 
-        self.tile_2 = customtkinter.CTkButton(self.puzzle_frame, text=" 2 ", width=5, height=2, command=self.clicked_tile_2_event)
+        self.tile_2 = customtkinter.CTkButton(self.puzzle_frame, text=" 2 ", width=5, height=2, command=lambda:self.click_tile(2))
         self.tile_2.grid(row=0, column=1, padx=10, pady=10)
         self.tile_2.configure(font = custom_font)
 
-        self.tile_3 = customtkinter.CTkButton(self.puzzle_frame, text=" 3 ", width=5, height=2, command=self.clicked_tile_3_event)
+        self.tile_3 = customtkinter.CTkButton(self.puzzle_frame, text=" 3 ", width=5, height=2, command=lambda:self.click_tile(3))
         self.tile_3.grid(row=0, column=2, padx=10, pady=10)
         self.tile_3.configure(font = custom_font)
         
-        self.tile_4 = customtkinter.CTkButton(self.puzzle_frame, text=" 4 ", width=5, height=2, command=self.clicked_tile_4_event)
+        self.tile_4 = customtkinter.CTkButton(self.puzzle_frame, text=" 4 ", width=5, height=2, command=lambda:self.click_tile(4))
         self.tile_4.grid(row=1, column=0, padx=10, pady=10)
         self.tile_4.configure(font = custom_font)
 
-        self.tile_5 = customtkinter.CTkButton(self.puzzle_frame, text=" 5 ", width=5, height=2, command=self.clicked_tile_5_event)
+        self.tile_5 = customtkinter.CTkButton(self.puzzle_frame, text=" 5 ", width=5, height=2, command=lambda:self.click_tile(5))
         self.tile_5.grid(row=1, column=1, padx=10, pady=10)
         self.tile_5.configure(font = custom_font)
 
-        self.tile_6 = customtkinter.CTkButton(self.puzzle_frame, text=" 6 ", width=5, height=2, command=self.clicked_tile_6_event)
+        self.tile_6 = customtkinter.CTkButton(self.puzzle_frame, text=" 6 ", width=5, height=2, command=lambda:self.click_tile(6))
         self.tile_6.grid(row=1, column=2, padx=10, pady=10)
         self.tile_6.configure(font = custom_font)
         
-        self.tile_7 = customtkinter.CTkButton(self.puzzle_frame, text=" 7 ", width=5, height=2, command=self.clicked_tile_7_event)
+        self.tile_7 = customtkinter.CTkButton(self.puzzle_frame, text=" 7 ", width=5, height=2, command=lambda:self.click_tile(7))
         self.tile_7.grid(row=2, column=0, padx=10, pady=10)
         self.tile_7.configure(font = custom_font)
 
-        self.tile_8 = customtkinter.CTkButton(self.puzzle_frame, text=" 8 ", width=5, height=2, command=self.clicked_tile_8_event)
+        self.tile_8 = customtkinter.CTkButton(self.puzzle_frame, text=" 8 ", width=5, height=2, command=lambda:self.click_tile(8))
         self.tile_8.grid(row=2, column=1, padx=10, pady=10)
         self.tile_8.configure(font = custom_font)
 
-        self.tile_9 = customtkinter.CTkButton(self.puzzle_frame, text="    ", width=5, height=2, command=self.clicked_tile_9_event)
+        self.tile_9 = customtkinter.CTkButton(self.puzzle_frame, text="    ", width=5, height=2, command=lambda:self.click_tile(0))
         self.tile_9.grid(row=2, column=2, padx=10, pady=10)
         self.tile_9.configure(font = custom_font)
         
@@ -123,41 +124,41 @@ class App(customtkinter.CTk):
 
 
 
-    def clicked_tile_1_event(self):
-        print("Tile 1 clicked")
-        self.click_tile(1)
+    # def clicked_tile_1_event(self):
+    #     print("Tile 1 clicked")
+    #     self.click_tile(1)
 
-    def clicked_tile_2_event(self):
-        print("Tile 2 clicked")
-        self.click_tile(2)
+    # def clicked_tile_2_event(self):
+    #     print("Tile 2 clicked")
+    #     self.click_tile(2)
 
-    def clicked_tile_3_event(self):
-        print("Tile 3 clicked")
-        self.click_tile(3)
+    # def clicked_tile_3_event(self):
+    #     print("Tile 3 clicked")
+    #     self.click_tile(3)
 
-    def clicked_tile_4_event(self):
-        print("Tile 4 clicked")
-        self.click_tile(4)
+    # def clicked_tile_4_event(self):
+    #     print("Tile 4 clicked")
+    #     self.click_tile(4)
     
-    def clicked_tile_5_event(self):
-        print("Tile 5 clicked")
-        self.click_tile(5)
+    # def clicked_tile_5_event(self):
+    #     print("Tile 5 clicked")
+    #     self.click_tile(5)
 
-    def clicked_tile_6_event(self):
-        print("Tile 6 clicked")
-        self.click_tile(6)
+    # def clicked_tile_6_event(self):
+    #     print("Tile 6 clicked")
+    #     self.click_tile(6)
     
-    def clicked_tile_7_event(self):
-        print("Tile 7 clicked")
-        self.click_tile(7)
+    # def clicked_tile_7_event(self):
+    #     print("Tile 7 clicked")
+    #     self.click_tile(7)
     
-    def clicked_tile_8_event(self):
-        print("Tile 8 clicked")
-        self.click_tile(8)
+    # def clicked_tile_8_event(self):
+    #     print("Tile 8 clicked")
+    #     self.click_tile(8)
     
-    def clicked_tile_9_event(self):
-        print("Tile 9 clicked")
-        self.click_tile(0)
+    # def clicked_tile_9_event(self):
+    #     print("Tile 9 clicked")
+    #     self.click_tile(0)
 
     def click_tile(self, button):
         print("Button clicked")
