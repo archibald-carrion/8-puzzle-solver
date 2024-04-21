@@ -122,64 +122,23 @@ class App(customtkinter.CTk):
         # self.right_sidebar_frame.grid(row=0, column=3, rowspan=4, sticky="nsew")
         # self.right_sidebar_frame.grid_rowconfigure(5, weight=1)
 
-
-
-    # def clicked_tile_1_event(self):
-    #     print("Tile 1 clicked")
-    #     self.click_tile(1)
-
-    # def clicked_tile_2_event(self):
-    #     print("Tile 2 clicked")
-    #     self.click_tile(2)
-
-    # def clicked_tile_3_event(self):
-    #     print("Tile 3 clicked")
-    #     self.click_tile(3)
-
-    # def clicked_tile_4_event(self):
-    #     print("Tile 4 clicked")
-    #     self.click_tile(4)
-    
-    # def clicked_tile_5_event(self):
-    #     print("Tile 5 clicked")
-    #     self.click_tile(5)
-
-    # def clicked_tile_6_event(self):
-    #     print("Tile 6 clicked")
-    #     self.click_tile(6)
-    
-    # def clicked_tile_7_event(self):
-    #     print("Tile 7 clicked")
-    #     self.click_tile(7)
-    
-    # def clicked_tile_8_event(self):
-    #     print("Tile 8 clicked")
-    #     self.click_tile(8)
-    
-    # def clicked_tile_9_event(self):
-    #     print("Tile 9 clicked")
-    #     self.click_tile(0)
-
     def click_tile(self, button):
-        print("Button clicked")
-        if self.tile_map.get(button).cget("text") == "    ":  # check if the empty tile is clicked
-            print("Empty tile clicked")
+        # check if the empty tile is clicked
+        if self.tile_map.get(button).cget("text") == "    ":
+            # print("Empty tile clicked") # debugging purposes
             return
-        # print(button)
 
         # check if the button is next to the empty tile
         for i in range(3):
             for j in range(3):
                 # check if the button number is the same as the tile using the tile_map
                 if self.tile_map[button] == self.tiles[i][j]:
-                    # print(self.tiles[i][j].cget("text"))
-                    #if str(self.tiles[i][j].cget("text")) == str(button):
-                    #if self.tiles[i][j] == button:
-                    print("Button found")
-                    print("Button found, number: ", str(self.tiles[i][j]))
                     self.move_tile(i, j)
                     return
-         
+
+    # move_tile function moves the tile to the empty space
+    # it takes the row and column of the tile to be moved and returns True if
+    # the tile was moved successfully, False otherwise
     def move_tile(self, row, col):
         # Move the tile if possible
         can_go_up = row > 0
@@ -191,31 +150,33 @@ class App(customtkinter.CTk):
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row - 1][col].configure(text=label)
-            print("Moving tile up")
-            return
+            # print("Moving tile up") # debugging purposes
+            return True
 
         if can_go_down and self.tiles[row + 1][col].cget("text") == "    ":
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row + 1][col].configure(text=label)
-            print("Moving tile down")
-            return
+            # print("Moving tile down") # debugging purposes
+            return True
 
         if can_go_left and self.tiles[row][col - 1].cget("text") == "    ":
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row][col - 1].configure(text=label)
-            print("Moving tile left")
-            return
+            # print("Moving tile left") # debugging purposes
+            return True
         
         if can_go_right and self.tiles[row][col + 1].cget("text") == "    ":
             label = self.tiles[row][col].cget("text")
             self.tiles[row][col].configure(text="    ")
             self.tiles[row][col+1].configure(text=label)
-            print("Moving tile right")
-            return
+            # print("Moving tile right") # debugging purposes
+            return True
 
-        print("Invalid move")
+        return False
+
+        # print("Invalid move") # debugging purposes
 
 
     def run(self):
