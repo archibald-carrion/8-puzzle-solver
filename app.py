@@ -11,8 +11,8 @@ import matrices
 customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_default_color_theme("green")
 
-# Create a font object with the desired size
 custom_font = ("Helvetica", 30) # font used in the buttons of the puzzle
+empty_tile = "    " # text used in the empty tile
           
 class App(customtkinter.CTk):
     def __init__(self):
@@ -22,14 +22,33 @@ class App(customtkinter.CTk):
         self.title("8 Puzzle Solver")
         self.geometry(f"{1480}x{720}")
 
-        # configure grid layout (4x4)
+        # configure grid layout (4x4) and others general configurations
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure((2, 3), weight=0)
         self.grid_rowconfigure(0, weight=1)
 
-        
         # left side bar section
+        self.init_left_sidebar()
+        # upper middle section containing the puzzle grid
+        self.init_puzzle()
+        # lower middle section that contains the buttons to create a new puzzle
+        # self.init_bottom_middle_section()
+        # upper right side bar section that contains the buttons to solve the puzzle
+        # self.init_top_right_sidebar()
+        # lower right side bar section that contains the results of the puzzle
+        # self.init_bottom_right_sidebar()
 
+
+        
+
+        # middle section containing the puzzle grid
+        # self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
+        # self.right_sidebar_frame.grid(row=0, column=3, rowspan=4, sticky="nsew")
+        # self.right_sidebar_frame.grid_rowconfigure(5, weight=1)
+    
+    # init_left_sidebar function initializes the left sidebar section of the app
+    # it contains the appearance mode option menu, scaling option menu and quit button
+    def init_left_sidebar(self):
         # create and configure the sidebar frame
         self.left_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
         self.left_sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
@@ -60,7 +79,8 @@ class App(customtkinter.CTk):
         self.quit_button.grid(row=6, column=0, padx=20, pady=(10, 40))
         self.quit_button.configure(state="enabled", text="Quit simulation")
 
-
+    # init_puzzle function initializes the puzzle section of the app
+    def init_puzzle(self):
         self.puzzle_frame = customtkinter.CTkFrame(self)
         self.puzzle_frame.grid(row=0, column=1, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
@@ -101,7 +121,7 @@ class App(customtkinter.CTk):
         self.tile_8.grid(row=2, column=1, padx=10, pady=10)
         self.tile_8.configure(font = custom_font)
 
-        self.tile_9 = customtkinter.CTkButton(self.puzzle_frame, text="    ", width=5, height=2, command=lambda:self.click_tile(0))
+        self.tile_9 = customtkinter.CTkButton(self.puzzle_frame, text=empty_tile, width=5, height=2, command=lambda:self.click_tile(0))
         self.tile_9.grid(row=2, column=2, padx=10, pady=10)
         self.tile_9.configure(font = custom_font)
         
@@ -117,14 +137,10 @@ class App(customtkinter.CTk):
                         8: self.tile_8, 
                         0: self.tile_9}
 
-        # middle section containing the puzzle grid
-        # self.right_sidebar_frame = customtkinter.CTkFrame(self, width=140, corner_radius=0)
-        # self.right_sidebar_frame.grid(row=0, column=3, rowspan=4, sticky="nsew")
-        # self.right_sidebar_frame.grid_rowconfigure(5, weight=1)
-
+    # click_tile function is called when a tile is clicked
     def click_tile(self, button):
         # check if the empty tile is clicked
-        if self.tile_map.get(button).cget("text") == "    ":
+        if self.tile_map.get(button).cget("text") == empty_tile:
             # print("Empty tile clicked") # debugging purposes
             return
 
@@ -146,30 +162,30 @@ class App(customtkinter.CTk):
         can_go_left = col > 0
         can_go_right = col < 2
 
-        if can_go_up and self.tiles[row - 1][col].cget("text") == "    ":
+        if can_go_up and self.tiles[row - 1][col].cget("text") == empty_tile:
             label = self.tiles[row][col].cget("text")
-            self.tiles[row][col].configure(text="    ")
+            self.tiles[row][col].configure(text=empty_tile)
             self.tiles[row - 1][col].configure(text=label)
             # print("Moving tile up") # debugging purposes
             return True
 
-        if can_go_down and self.tiles[row + 1][col].cget("text") == "    ":
+        if can_go_down and self.tiles[row + 1][col].cget("text") == empty_tile:
             label = self.tiles[row][col].cget("text")
-            self.tiles[row][col].configure(text="    ")
+            self.tiles[row][col].configure(text=empty_tile)
             self.tiles[row + 1][col].configure(text=label)
             # print("Moving tile down") # debugging purposes
             return True
 
-        if can_go_left and self.tiles[row][col - 1].cget("text") == "    ":
+        if can_go_left and self.tiles[row][col - 1].cget("text") == empty_tile:
             label = self.tiles[row][col].cget("text")
-            self.tiles[row][col].configure(text="    ")
+            self.tiles[row][col].configure(text=empty_tile)
             self.tiles[row][col - 1].configure(text=label)
             # print("Moving tile left") # debugging purposes
             return True
         
-        if can_go_right and self.tiles[row][col + 1].cget("text") == "    ":
+        if can_go_right and self.tiles[row][col + 1].cget("text") == empty_tile:
             label = self.tiles[row][col].cget("text")
-            self.tiles[row][col].configure(text="    ")
+            self.tiles[row][col].configure(text=empty_tile)
             self.tiles[row][col+1].configure(text=label)
             # print("Moving tile right") # debugging purposes
             return True
