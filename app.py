@@ -173,6 +173,13 @@ class App(customtkinter.CTk):
     def solve_puzzle_breadth_first(self):
         print("Solving puzzle using Breadth First algorithm")
         matrix_to_solve = self.get_matrix_from_UI()
+        # reinitialized the puzzle to the solved puzzle
+        for i in range(3):
+            for j in range(3):
+                if i == 2 and j == 2:
+                    self.tiles[i][j].configure(text=empty_tile)
+                else:
+                    self.tiles[i][j].configure(text=f" {i * 3 + j + 1} ")
         # solved_puzzle = eightPuzzleSolver.breadthFirst(matrix_to_solve)
         # self.update_puzzle(solved_puzzle)
         # get time elapsed, space and update the results
@@ -180,6 +187,13 @@ class App(customtkinter.CTk):
     def solve_puzzle_greedy(self):
         print("Solving puzzle using Greedy algorithm")
         matrix_to_solve = self.get_matrix_from_UI()
+        # reinitialized the puzzle to the solved puzzle
+        for i in range(3):
+            for j in range(3):
+                if i == 2 and j == 2:
+                    self.tiles[i][j].configure(text=empty_tile)
+                else:
+                    self.tiles[i][j].configure(text=f" {i * 3 + j + 1} ")
         # solved_puzzle = self.eightPuzzleSolver.greedy(matrix_to_solve)
         # self.update_puzzle(solved_puzzle)
         # get time elapsed, space and update the results
@@ -187,6 +201,13 @@ class App(customtkinter.CTk):
     def solve_puzzle_ids(self):
         print("Solving puzzle using IDS algorithm")
         matrix_to_solve = self.get_matrix_from_UI()
+        # reinitialized the puzzle to the solved puzzle
+        for i in range(3):
+            for j in range(3):
+                if i == 2 and j == 2:
+                    self.tiles[i][j].configure(text=empty_tile)
+                else:
+                    self.tiles[i][j].configure(text=f" {i * 3 + j + 1} ")
         # solved_puzzle = self.eightPuzzleSolver.IDS(matrix_to_solve)
         # self.update_puzzle(solved_puzzle)
         # get time elapsed, space and update the results
@@ -194,6 +215,13 @@ class App(customtkinter.CTk):
     def solve_puzzle_ids_star(self):
         print("Solving puzzle using IDS Star algorithm")
         matrix_to_solve = self.get_matrix_from_UI()
+        # reinitialized the puzzle to the solved puzzle
+        for i in range(3):
+            for j in range(3):
+                if i == 2 and j == 2:
+                    self.tiles[i][j].configure(text=empty_tile)
+                else:
+                    self.tiles[i][j].configure(text=f" {i * 3 + j + 1} ")
         # solved_puzzle = eightPuzzleSolver.idsStar(matrix_to_solve)
         # self.update_puzzle(solved_puzzle)
         # get time elapsed, space and update the results
