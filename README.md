@@ -36,8 +36,8 @@ The project is still in development, and there are a few improvements that can b
 - [x] Depth First Search algorithm
 - [x] IDS* Search algorithm
 - [x] user friendly GUI
-- [x] Verify if a given puzzle is solvable
-- [x] Display in the log the time taken to solve the puzzle
-- [x] Display in the log the quantity of memory used to solve the puzzle
+- [x] Allow user to input a custom puzzle and solve it
+- [ ] Add a log to the UI to display the time and space complexity
+- [ ] Display in the UI log the time taken to solve the puzzle
+- [ ] Display in the UI log the quantity of memory used to solve the puzzle
 - [ ] Implement A* Search algorithm
-- [ ] Allow user to input a custom puzzle
