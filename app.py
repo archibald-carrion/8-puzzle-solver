@@ -55,7 +55,7 @@ class App(customtkinter.CTk):
         self.left_sidebar_frame.grid_rowconfigure(5, weight=1)
 
         # create and configure the logo label
-        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="Match making system", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.logo_label = customtkinter.CTkLabel(self.left_sidebar_frame, text="8 puzzle solver", font=customtkinter.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))   # set the logo at the top of the left column
 
         # create and configure the appearance option menu and label
