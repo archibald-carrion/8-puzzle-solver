@@ -24,5 +24,12 @@ if errorlevel 1 (
     pip3 install customtkinter
 )
 
+REM Check if psutil is installed
+pip3 show psutil >nul 2>&1
+if errorlevel 1 (
+    echo psutil is not installed. Installing...
+    pip3 install psutil
+)
+
 REM Run your Python app
 python main.py
