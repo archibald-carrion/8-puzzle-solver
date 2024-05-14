@@ -41,3 +41,5 @@ The project is still in development, and there are a few improvements that can b
 - [ ] Display in the UI log the time taken to solve the puzzle
 - [ ] Display in the UI log the quantity of memory used to solve the puzzle
 - [ ] Implement A* Search algorithm
+- [ ] Add pop-up messages to the UI to inform the user about the result of the solving
+- [ ] Add pop-up messages to the UI to inform the user that he solved the puzzle
