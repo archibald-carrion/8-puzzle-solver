@@ -45,3 +45,5 @@ The project is still in development, and there are a few improvements that can b
 - [ ] Add pop-up messages to the UI to inform the user that he solved the puzzle
 
 ## Screenshot
+
+![Screenshot](images/app_screenshot.PNG)
